@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca7ee049-08e4-4733-90e1-ccb150aabbb5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static_files/color_scatter.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/color_scatter.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static_files/csvurl.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/csvurl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static_files/urlcall.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/urlcall.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/call_entry.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/call_entry.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload_files/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,15 +44,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/static_files" />
+      <recent name="$PROJECT_DIR$/upload_files/management/commands" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/static/static_files" />
       <recent name="$PROJECT_DIR$/template/index" />
       <recent name="$PROJECT_DIR$/upload_files" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/static/static_files" />
-      <recent name="$PROJECT_DIR$/upload_files/management/commands" />
     </key>
   </component>
   <component name="RunManager" selected="Python.runserver">
@@ -263,26 +269,26 @@
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl/67.27.1533.873@67.27.1533.873" timestamp="1581755252434" />
-    <state width="1510" height="85" key="GridCell.Tab.0.bottom" timestamp="1582265323673">
+    <state width="1510" height="105" key="GridCell.Tab.0.bottom" timestamp="1582289141315">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state width="1276" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1579172636027" />
-    <state width="1510" height="85" key="GridCell.Tab.0.bottom/67.27.1533.873@67.27.1533.873" timestamp="1582265323673" />
-    <state width="1510" height="85" key="GridCell.Tab.0.center" timestamp="1582265323672">
+    <state width="1510" height="105" key="GridCell.Tab.0.bottom/67.27.1533.873@67.27.1533.873" timestamp="1582289141315" />
+    <state width="1510" height="105" key="GridCell.Tab.0.center" timestamp="1582289141314">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state width="1276" height="175" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1579172636026" />
-    <state width="1510" height="85" key="GridCell.Tab.0.center/67.27.1533.873@67.27.1533.873" timestamp="1582265323672" />
-    <state width="1510" height="85" key="GridCell.Tab.0.left" timestamp="1582265323672">
+    <state width="1510" height="105" key="GridCell.Tab.0.center/67.27.1533.873@67.27.1533.873" timestamp="1582289141314" />
+    <state width="1510" height="105" key="GridCell.Tab.0.left" timestamp="1582289141314">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state width="1276" height="175" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1579172636025" />
-    <state width="1510" height="85" key="GridCell.Tab.0.left/67.27.1533.873@67.27.1533.873" timestamp="1582265323672" />
-    <state width="1510" height="85" key="GridCell.Tab.0.right" timestamp="1582265323672">
+    <state width="1510" height="105" key="GridCell.Tab.0.left/67.27.1533.873@67.27.1533.873" timestamp="1582289141314" />
+    <state width="1510" height="105" key="GridCell.Tab.0.right" timestamp="1582289141314">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state width="1276" height="175" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1579172636026" />
-    <state width="1510" height="85" key="GridCell.Tab.0.right/67.27.1533.873@67.27.1533.873" timestamp="1582265323672" />
+    <state width="1510" height="105" key="GridCell.Tab.0.right/67.27.1533.873@67.27.1533.873" timestamp="1582289141314" />
     <state width="1510" height="260" key="GridCell.Tab.1.bottom" timestamp="1580823907420">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
@@ -317,10 +323,10 @@
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="383" y="201" width="890" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1533.873@67.27.1533.873" timestamp="1580802727790" />
-    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup" timestamp="1581417210757">
+    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup" timestamp="1582272318887">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
-    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup/67.27.1533.873@67.27.1533.873" timestamp="1581417210757" />
+    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup/67.27.1533.873@67.27.1533.873" timestamp="1582272318887" />
     <state x="558" y="375" width="540" height="175" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581576311415">
       <screen x="67" y="27" width="1533" height="873" />
     </state>

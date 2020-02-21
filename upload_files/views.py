@@ -9,7 +9,7 @@ from .models import *
 
 
 def paginate_query_set(d, page):
-    paginator = Paginator(d, 15)
+    paginator = Paginator(d, 12)
     try:
         data = paginator.page(page)
     except PageNotAnInteger:
@@ -36,7 +36,7 @@ def validation(request):
             return call_entry_not_matched(request)
         elif file == "cdr not matched":
             return cdr_not_matched(request)
-        elif file == "callentry":
+        elif file == "call_entry":
             return call_entry(request)
         elif file == "call progress":
             return call_progress(request)
