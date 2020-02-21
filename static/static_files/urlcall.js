@@ -10,7 +10,7 @@ function myFunction(num){
         localStorage.setItem("filename", text);
         };
     });
-    if (document.getElementById("sdate").value !== null){
+    if (document.getElementById("sdate").value){
         sdate = localStorage.getItem('sdate');
         edate = localStorage.getItem('edate');
         file = localStorage.getItem('file');
