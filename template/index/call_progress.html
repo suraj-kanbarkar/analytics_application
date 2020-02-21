@@ -1,0 +1,90 @@
+{% extends  'index.html' %}
+{% block tables %}
+{% if items.paginator.num_pages > 1 %}
+{% load static %}
+
+<script src="{% static 'urlcall.js' %}"></script>
+<script src="{% static 'csvurl.js' %}"></script>
+
+<form action="" method="get">
+    <h3>Call Progress</h3>
+    <input id="myInput" type="text" name="q_c_progress" placeholder="Search Here..." required>
+    <div class="pagination">
+    {% if items.has_previous %}
+        <a class="pagination-action" onclick="myFunction({{ 1 }})">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+        <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+    {% for num in items.paginator.page_range %}
+        {% if items.number == num %}
+            <span class="pagination-number pagination-current">{{ num }}</span>
+        {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
+            <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if items.has_next %}
+        <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </a>
+        <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+    </div>
+    {% endif %}
+    {% if items %}
+    </form>
+    <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+    <div class="table-responsive text-nowrap" style="overflow-x: auto">
+    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">unique_id</th>
+        <th class="th-sm">datetime_entry</th>
+        <th class="th-sm">id_campaign_incoming</th>
+        <th class="th-sm">id_call_incoming</th>
+        <th class="th-sm">id_campaign_outgoing</th>
+        <th class="th-sm">id_call_outgoing</th>
+        <th class="th-sm">new_status</th>
+        <th class="th-sm">retry</th>
+        <th class="th-sm">trunk</th>
+        <th class="th-sm">id_agent</th>
+        <th class="th-sm">duration</th>
+
+      </tr>
+    </thead>
+    {% for j in items %}
+        <tbody id="myTable">
+          <tr>
+            <td>{{ j.unique_id }}</td>
+            <td>{{ j.datetime_entry }}</td>
+            <td>{{ j.id_campaign_incoming }}</td>
+            <td>{{ j.id_call_incoming }}</td>
+            <td>{{ j.id_campaign_outgoing }}</td>
+            <td>{{ j.id_call_outgoing }}</td>
+            <td>{{ j.new_status }}</td>
+            <td>{{ j.retry }}</td>
+            <td>{{ j.trunk }}</td>
+            <td>{{ j.id_agent }}</td>
+            <td>{{ j.duration }}</td>
+          </tr>
+        </tbody>
+    {% endfor %}
+    {% endif %}
+    </table>
+    </div>
+    <div style="position:absolute; left:89%; right:0px; top:0px; background-color:blank;">
+        <button class="btn btn-primary" onclick="getcsv()" id="csv" value="csv" name="cp_csv">csv</button>
+    </div>
+{% endblock %}

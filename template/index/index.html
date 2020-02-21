@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+{% load bootstrap4 %}{% bootstrap_css %}{% bootstrap_javascript jquery='full' %}{{ form.media }}
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+
+  <link rel="shortcut icon" href=""/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="{% static 'color_scatter.css'%}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+          crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'pagination.css' %}">
+  <script src="{% static 'urlcall.js' %}"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- Fengyuan Chen's Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+</head>
+<style>
+
+body {
+      padding: 3em;
+      background-color: #85a0be;
+      font: 13px/1.4 Geneva, 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    }
+
+/* Style the header */
+  .header {
+  position: absolute
+  background-color: #4f2f2f2;
+  text-align: left;
+ }
+
+  h1 {
+    position: relative;
+    left: 10px;
+    color: #DC143C;
+    font-weight: bold;
+    text-shadow:0 1px 0 #ccc,
+      0 2px 0 #c9c9c9,
+      0 3px 0 #bbb,
+      0 4px 0 #b9b9b9,
+      0 5px 0 #aaa,
+      0 6px 1px rgba(0,0,0,.1),
+      0 0 5px rgba(0,0,0,.1),
+      0 1px 3px rgba(0,0,0,.3),
+      0 3px 5px rgba(0,0,0,.2),
+      0 5px 10px rgba(0,0,0,.25),
+      0 10px 10px rgba(0,0,0,.2),
+      0 20px 20px rgba(0,0,0,.15);
+    }
+
+
+ * {
+  box-sizing: border-box;
+  }
+
+  .btn-xl {
+    padding: 40px 60px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-top: 10px;
+  }
+
+</style>
+<body>
+  <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:2px; position:absolute; left:0px; right:0px; top:0px;">
+    <a href="{% url 'index' %}" class="w3-bar-item w3-button"><h1>Grassroots</h1></a>
+  </div>
+  {% if ans_calls %}
+  <div class="card-deck-1">
+    <h2 class="card-title"> Disposition </h2>
+    <div class="card text-white bg-success mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ ans_calls }} %</h2>
+        <p class="card-text"> Answered Calls </p>
+        <p class="card-text"> {{ ans_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-warning mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ no_ans_calls }} %</h2>
+        <p class="card-text"> Not Answered Calls </p>
+        <p class="card-text"> {{ no_ans_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-danger mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ failed_calls }} %</h2>
+        <p class="card-text"> Failed Calls </p>
+        <p class="card-text"> {{ failed_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+  </div>
+  <div class="card-deck-2">
+    <h2 class="card-title"> Duration On Call </h2>
+    <div class="card text-white bg-success mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title">{{ greater_than_30_sec }} %</h2>
+        <p class="card-text">Call Duration More Than 30 sec </p>
+        <p class="card-text"> {{ greater_than_30_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-warning mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ less_than_30_sec }} %</h2>
+        <p class="card-text"> Call Duration Less Than 30 sec </p>
+        <p class="card-text"> {{ less_than_30_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-danger mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ less_than_20_sec }} %</h2>
+        <p class="card-text"> Call Duration Less than 20 sec </p>
+        <p class="card-text"> {{ less_than_20_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-danger mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ less_than_10_sec }} %</h2>
+        <p class="card-text"> Call Duration Less than 10 sec </p>
+        <p class="card-text"> {{ less_than_10_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <form action="validation" method = 'GET'>
+    <div class="w3-bar w3-white w3-padding w3-card" style = "position:absolute; left:0px; right:0px; top:92px; background-color:blank;">
+        <div class="row">
+          <div class="col-25">
+            <label for="sdate">Start Date</label>
+            <input type="date" id="sdate" name="startdate" required>
+            <label for="edate">End Date</label>
+            <input type="date" id="edate" name="enddate" required>
+            <label for="srvr">Server</label>
+              <select id="srvr" name="server" required>
+                <option value="">Select Server</option>
+                <option value="mysql">Mysql</option>
+                <option value="mongodb">MongoDB</option>
+                <option value="aws">AWS</option>
+              </select>
+            <label for="file">File</label>
+            <select id="file" name="file" required>
+              <option value="">Select File</option>
+              <option value="callentry">CALL ENTRY</option>
+              <option value="call progress">CALL PROGRESS</option>
+              <option value="cdr">CDR</option>
+              <option value="callentry and cdr">Call Entry And CDR</option>
+              <option value="callentry not matched">Call Entry Not Matched</option>
+              <option value="cdr not matched">CDR Not Matched</option>
+            </select>
+            <script type="text/javascript">
+              function getdate(){
+                var start_date=document.getElementById("sdate").value;
+                var end_date=document.getElementById("edate").value;
+                var server=document.getElementById("srvr").value;
+                var file=document.getElementById("file").value;
+
+                  if (typeof(Storage) !== "undefined") {
+                  // Store
+                  localStorage.setItem("sdate", start_date);
+                  localStorage.setItem("edate", end_date);
+                  localStorage.setItem("server", server);
+                  localStorage.setItem("file", file);
+                  };
+              }
+              </script>
+            <input type="submit" value="Load File" onclick="getdate()">
+          </div>
+        </div>
+    </div>
+  </form>
+  <!-- Menu Navigation Bar -->
+  <div class="container_2">
+    <ul class="nav">
+      <li>
+        <a href="{% url 'index' %}">
+          <i class="zmdi zmdi-view-dashboard"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i class="zmdi zmdi-link"></i> Tables
+        </a>
+        <div class="dropdown-menu" id="filename">
+          <button class="dropdown-item" onclick="myFunction()" name="call_entry">Call Entry</button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" onclick="myFunction()" name="call_progress">CALL PROGRESS</button>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" onclick="myFunction()" name="cdr">CDR</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" onclick="myFunction()" name="call_entry_and_cdr">Call Entry And CDR</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" onclick="myFunction()" name="call_entry_not_matched">Call Entry Not Matched</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" onclick="myFunction()" name="cdr_not_matched">CDR Not Matched</a>
+        </div>
+      </li>
+      <script>
+        $(document).click(function(event) {
+    var text = $(event.target).text();
+    console.log(text)
+});
+      </script>
+      <li>
+        <a href="{% url 'graphs' %}">
+          <i class="zmdi zmdi-link"></i> Charts
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-widgets"></i> Reports
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-info-outline"></i> About
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-settings"></i> Services
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="zmdi zmdi-comment-more"></i> Contact
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div> {% block dash %} {% endblock %} </div>
+  <div style = "position:absolute; left:500px; right:0px; top:230px;"> {% block chart %} {% endblock %} </div>
+  {% if items %}
+  <div class="card-deck-1" style = "position:absolute; width: 90%; left:151px; right:0px; top:146.5px;"> {% block tables %} {% endblock %} </div>
+  {% endif %}
+      <script type="text/javascript">
+       $(document).ready(function() {
+                      $('#download').click(function(){
+                          var s_date = $('#sdate').val()
+                          var e_date = $('#edate').val()
+                          var server = $('#server').val()
+                          var file = $('#file').val()
+                          $.ajax({
+                          type:"GET",
+                          url : "http://localhost:8000/index?startdate=" + s_date + '&enddate=' + e_date + '&server=' + server + '&file=' + file,
+                          data:{ } , // do I need to pass data if im GET ting?
+                          dataType: 'json',
+                          success : function(data){
+                             console.log('Success')
+                          },
+
+                      });//end ajax
+                    });//end click
+                  });//end rdy
+      </script>
+</body>
+</html>

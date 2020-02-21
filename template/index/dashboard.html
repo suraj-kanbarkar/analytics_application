@@ -1,0 +1,80 @@
+
+{% extends 'index.html' %}
+{% block dash %}
+  <div class="card-deck-1">
+    <h2 class="card-title"> Disposition </h2>
+    <div class="card text-white bg-success mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ ans_calls }} </h2>
+        <p class="card-text"> Answered Calls </p>
+        <p class="card-text"> {{ ans_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-warning mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ no_ans_calls }} </h2>
+        <p class="card-text"> Not Answered Calls </p>
+        <p class="card-text"> {{ no_ans_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-danger mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ failed_calls }} </h2>
+        <p class="card-text"> Failed Calls </p>
+        <p class="card-text"> {{ failed_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+  </div>
+  <div class="card-deck-2">
+    <h2 class="card-title"> Duration On Call </h2>
+    <div class="card text-white bg-success mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title">{{ greater_than_30_sec }}</h2>
+        <p class="card-text">Call Avg Duration More Than 30 sec </p>
+        <p class="card-text"> {{ greater_than_30_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-warning mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ less_than_30_sec }} </h2>
+        <p class="card-text"> Call Avg Duration Less Than 30 sec </p>
+        <p class="card-text"> {{ less_than_30_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-danger mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ less_than_20_sec }} </h2>
+        <p class="card-text"> Call Avg Duration Less than 20 sec </p>
+        <p class="card-text"> {{ less_than_20_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+    <div class="card text-white bg-danger mb-3" style="width: 19rem;">
+      <div class="card-body">
+        <h2 class="card-title"> {{ less_than_10_sec }} </h2>
+        <p class="card-text"> Call Avg Duration Less than 10 sec </p>
+        <p class="card-text"> {{ less_than_10_count }} </p>
+      </div>
+      <div class="card-footer">
+        <small>Last updated 3 mins ago</small>
+      </div>
+    </div>
+  </div>
+{% endblock %}
