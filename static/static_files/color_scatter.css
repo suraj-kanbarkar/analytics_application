@@ -47,7 +47,7 @@ input[type=input]:hover {
   }
 
   .container_3 {
-    position: absolute;
+    position: fixed;
     left: 12%;
     top: 19.3%;
     background-color: #f2f2f2;

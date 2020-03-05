@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 import csv
 from upload_files.models import *
+import datetime
 
 
 class Command(BaseCommand):
@@ -35,16 +36,16 @@ class Command(BaseCommand):
         #         print(f)
         #         f.save()
 
-        with open('/home/appdevelopement/PycharmProjects/grassroots/call_analysis/call_data/Lmark-callentry.csv', 'rt') as csv_file:
-            reader = csv.DictReader(csv_file, delimiter=',')
-            for row in reader:
-                f = CALL_ENTRY(unique_id=row['uniqueid'], ce_id=row['id'], id_agent=row['id_agent'],
-                               id_queue_call_entry=row['id_queue_call_entry'], id_contact=row['id_contact'],
-                               caller_id=row['callerid'], datetime_init=row['datetime_init'],
-                               datetime_end=row['datetime_end'], ce_duration=row['duration'], status=row['status'],
-                               transfer=row['transfer'], datetime_entry_queue=row['datetime_entry_queue'],
-                               duration_wait=row['duration_wait'], id_campaign=row['id_campaign'], trunk=row['trunk'])
-                f.save()
+        # with open('/home/appdevelopement/PycharmProjects/grassroots/call_analysis/call_data/Lmark-callentry.csv', 'rt') as csv_file:
+        #     reader = csv.DictReader(csv_file, delimiter=',')
+        #     for row in reader:
+        #         f = CALL_ENTRY(unique_id=row['uniqueid'], ce_id=row['id'], id_agent=row['id_agent'],
+        #                        id_queue_call_entry=row['id_queue_call_entry'], id_contact=row['id_contact'],
+        #                        caller_id=row['callerid'], datetime_init=row['datetime_init'],
+        #                        datetime_end=row['datetime_end'], ce_duration=row['duration'], status=row['status'],
+        #                        transfer=row['transfer'], datetime_entry_queue=row['datetime_entry_queue'],
+        #                        duration_wait=row['duration_wait'], id_campaign=row['id_campaign'], trunk=row['trunk'])
+        #         f.save()
 
         # with open('/home/appdevelopement/PycharmProjects/grassroots/upload_data/media/call_progress_ctkt-22-23.csv', 'rt') as csv_file:
         #     reader = csv.DictReader(csv_file, delimiter=',')
@@ -68,3 +69,35 @@ class Command(BaseCommand):
         #                 c_num=row['cnum'], c_nam=row['cnam'], outbound_cnum=row['outbound_cnum'],
         #                 outbound_cnam=row['outbound_cnam'], dst_cnam=row['dst_cnam'], did=row['did'])
         #         f.save()
+
+        with open('/home/appdevelopement/PycharmProjects/grassroots/call_analysis/cdr_2/CDR.csv', 'rt') as csv_file:
+            reader = csv.DictReader(csv_file, delimiter=',')
+
+            for row in reader:
+                PBX_Entry_Time = ''
+                Queue_Entry_Time = ''
+                Call_Start_Time = ''
+                Call_End_Time = ''
+                Queue_Wait_Time = ''
+                try:
+                    Queue_Entry_Time = datetime.datetime.strptime(row['Queue Entry Time'], '%m/%d/%Y %H:%M')
+                    # Queue_Entry_Time = Queue_Entry_Time.strftime('%m-%-d-%Y %H:%M:%S')
+                    Call_End_Time += str(datetime.datetime.strptime(row['Call End Time'], '%m/%d/%Y %H:%M'))
+                    Call_Start_Time += str(datetime.datetime.strptime(row['Call Start Time'], '%m/%d/%Y %H:%M'))
+                    PBX_Entry_Time += str(datetime.datetime.strptime(row['PBX Entry Time'], '%m/%d/%Y %H:%M'))
+
+                except ValueError:
+                    pass
+                except TypeError:
+                    pass
+
+                f = CDR_LIFESTYLE(S_No=row['S.No'], TFN=row['TFN'], Campaign=row['Campaign'],
+                                  PBX_Entry_Time=row['PBX Entry Time'],
+                                  Queue_Entry_Time=Queue_Entry_Time, Call_Start_Time=row['Call Start Time'],
+                                  Call_End_Time=row['Call End Time'], Source=row['Source'],
+                                  Destination=row['Destination'],
+                                  IVR_Time=row['IVR Time'], Talk_Time=row['Talk Time'],
+                                  Queue_Wait_Time=row['Queue Wait Time'],
+                                  Status=row['Status'], Transfer_Number=row['Transfer Number'],
+                                  PBX_Unqiue_ID=row['PBX Unqiue ID'])
+                f.save()

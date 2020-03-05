@@ -5,7 +5,7 @@ function myFunction(num){
     $(document).click(function(event) {
     var text = $(event.target).text();
     if (text === "Call Entry" || text === "Call Progress" || text === "CDR" || text === "Call Entry And CDR"
-    || text === "Call Entry Not Matched" || text === "CDR Not Matched"){
+    || text === "Call Entry Not Matched" || text === "CDR Not Matched" || text === "LifeStyle CDR"){
         localStorage.removeItem("sdate");
         localStorage.removeItem("edate");
         localStorage.setItem("filename", text);
@@ -32,6 +32,10 @@ function myFunction(num){
         }
         else if (localStorage.getItem("filename") === "CDR Not Matched"){
             var file = "cdr_not_matched";
+            window.location.href = url+file+"?page="+num+"";
+        }
+        else if (localStorage.getItem("filename") === "lifestyle cdr"){
+            var file = "lifestyle_cdr";
             window.location.href = url+file+"?page="+num+"";
         }
     });

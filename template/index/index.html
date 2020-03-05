@@ -16,8 +16,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+  <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
 
   <link rel="shortcut icon" href=""/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -29,11 +29,10 @@
           crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'pagination.css' %}">
   <script src="{% static 'urlcall.js' %}"></script>
+  <script src="{% static 'jsonparse.js' %}"></script>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <!-- Fengyuan Chen's Datepicker -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+
 </head>
 <style>
 
@@ -111,6 +110,7 @@ body {
               <option value="callentry and cdr">Call Entry And CDR</option>
               <option value="callentry not matched">Call Entry Not Matched</option>
               <option value="cdr not matched">CDR Not Matched</option>
+              <option value="lifestyle cdr">LifeStyle CDR</option>
             </select>
             <script type="text/javascript">
               function getdate(){
@@ -167,12 +167,12 @@ body {
 });
       </script>
       <li>
-        <a href="{% url 'graphs' %}">
+        <a id="b" href="{% url 'callentry' %}">
           <i class="zmdi zmdi-link"></i> Charts
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="{% url 'reports' %}">
           <i class="zmdi zmdi-widgets"></i> Reports
         </a>
       </li>
@@ -191,8 +191,13 @@ body {
           <i class="zmdi zmdi-comment-more"></i> Contact
         </a>
       </li>
+      <li>
+        <button>Send</button>
+      </li>
     </ul>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
   {% if ans_calls %}
   <div class="container_3">
@@ -275,10 +280,10 @@ body {
   </div>
   {% endif %}
 
-  <div> {% block dash %} {% endblock %} </div>
   <div style = "position:absolute; left:500px; right:0px; top:230px;"> {% block chart %} {% endblock %} </div>
   {% if items %}
   <div class="container_1" style = "position:absulute;"> {% block tables %} {% endblock %} </div>
+  <div class="container_1" style = "position:absulute;"> {% block report %} {% endblock %} </div>
   {% endif %}
       <script type="text/javascript">
        $(document).ready(function() {

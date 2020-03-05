@@ -40,6 +40,10 @@ function getcsv(){
             filename = "cdr_not_matched";
             window.location.href = url+filename+"?page="+num+"&csv="+csv+"";
         }
+        else if (filename === "LifeStyle CDR"){
+            filename = "lifestyle_cdr";
+            window.location.href = url+filename+"?page="+num+"&csv="+csv+"";
+        }
     }
 
 };

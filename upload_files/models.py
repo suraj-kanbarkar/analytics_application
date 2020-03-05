@@ -288,3 +288,28 @@ class Logs(models.Model):
     end_date = models.CharField(max_length=20, null=True)
     file = models.CharField(max_length=20, null=True)
     server = models.CharField(max_length=20, null=True)
+
+
+class CDR_LIFESTYLE(models.Model):
+    objects = models.Manager()
+    S_No = models.CharField(max_length=50, null=True)
+    TFN = models.CharField(max_length=50, null=True)
+    Campaign = models.CharField(max_length=50, null=True)
+    PBX_Entry_Time = models.CharField(max_length=50, null=True)
+    Queue_Entry_Time = models.CharField(max_length=100, default='0000-00-00 00:0-:00')
+    Call_Start_Time = models.CharField(max_length=50, null=True)
+    Call_End_Time = models.CharField(max_length=50, null=True)
+    Source = models.CharField(max_length=50, null=True)
+    Destination = models.CharField(max_length=50, null=True)
+    IVR_Time = models.CharField(max_length=50, null=True)
+    Talk_Time = models.CharField(max_length=50, null=True)
+    Queue_Wait_Time = models.CharField(max_length=50, null=True)
+    Status = models.CharField(max_length=50, null=True)
+    Transfer_Number = models.CharField(max_length=50, null=True)
+    PBX_Unqiue_ID = models.CharField(max_length=50, null=True)
+
+    def __str__(self):
+        template = '{0.S_No} {0.TFN} {0.Campaign} {0.PBX_Entry_Time} {0.Queue_Entry_Time} {0.Call_Start_Time}' \
+                   ' {0.Call_End_Time} {0.Source} {0.Destination} {0.IVR_Time} {0.Talk_Time} {0.Queue_Wait_Time}' \
+                   ' {0.Status} {0.Transfer_Number} {0.PBX_Unqiue_ID}'
+        return template.format(self)
