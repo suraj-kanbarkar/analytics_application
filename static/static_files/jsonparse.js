@@ -23,12 +23,12 @@
 //  console.log(out)
 //  document.getElementById("id01").innerHTML = out;
 //}
-
-$(document).ready(function(){
-  $("#b").click(function(){
-    $.get("http://127.0.0.1:8000/callentry/", function(data, status){
-      alert("data: " + data, "\nStatus: " + status);
-      console.log(data)
-    });
-  });
-});
+//
+//$(document).ready(function(){
+//  $("#b").click(function(){
+//    $.get("http://127.0.0.1:8000/callentry/", function(data, status){
+//      alert("data: " + data, "\nStatus: " + status);
+//      console.log(data)
+//    });
+//  });
+//});

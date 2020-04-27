@@ -2,18 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca7ee049-08e4-4733-90e1-ccb150aabbb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/static_files/graphs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/index/cuemath.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload_files/cuemath_report.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static_files/color_scatter.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/color_scatter.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static_files/csvurl.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/csvurl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static_files/jsonparse.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/jsonparse.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static_files/urlcall.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static_files/urlcall.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/call_entry.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/call_entry.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/index/call_entry_and_cdr.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/call_entry_and_cdr.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/index/cdr_not_matched.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/cdr_not_matched.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/index/cdr_to_call_entry.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/life_style_cdr.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/call_progress.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/call_progress.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/cdr.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/cdr.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/index/chart.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/chart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/dashboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/file_upload.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/filter.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/header.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/template/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/index/post_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/index/table_call.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/table_call.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/life_style_cdr.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/index/life_style_cdr.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/scrollbar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/index/table_call.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload_data/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_data/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload_data/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_data/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload_files/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/upload_files/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload_files/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload_files/management/commands/upload_cdr_and_ce.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/management/commands/upload_cdr_and_ce.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/upload_files/management/commands/upload_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/management/commands/upload_tables.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/upload_files/migrations/0001_initial.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/upload_files/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload_files/models.py" afterDir="false" />
@@ -24,9 +39,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="upload_data" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,15 +55,14 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$APPLICATION_CONFIG_DIR$/scratches" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -59,35 +70,15 @@
       <recent name="$PROJECT_DIR$/upload_files/management/commands" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$APPLICATION_CONFIG_DIR$/scratches" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/static/static_files" />
       <recent name="$PROJECT_DIR$/template/index" />
       <recent name="$PROJECT_DIR$/upload_files" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.runserver">
-    <configuration name="analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="upload_data" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/upload_files" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/upload_files/analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="call_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.cuemath_hourly_report">
+    <configuration name="camera" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="upload_data" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -99,7 +90,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/call_analysis.py" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/camera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -108,7 +99,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="leap_year" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="concat_csv_files" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="upload_data" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -120,7 +111,70 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/leap_year.py" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/concat_csv_files.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cuemath_hourly_report" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="upload_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/cuemath_hourly_report.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="cuemath_report" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="upload_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/cuemath_report.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="red_code" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="upload_data" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/red_code.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -171,79 +225,24 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="upload_data" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/upload_files" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/upload_files/views.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="wrap" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="upload_data" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/wrap.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.runserver" />
       <item itemvalue="Python.upload_tables" />
-      <item itemvalue="Python.call_analysis" />
-      <item itemvalue="Python.leap_year" />
-      <item itemvalue="Python.wrap" />
-      <item itemvalue="Python.analysis" />
-      <item itemvalue="Python.views" />
+      <item itemvalue="Python.camera" />
+      <item itemvalue="Python.cuemath_hourly_report" />
+      <item itemvalue="Python.cuemath_report" />
+      <item itemvalue="Python.red_code" />
+      <item itemvalue="Python.concat_csv_files" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.analysis" />
-        <item itemvalue="Python.views" />
-        <item itemvalue="Python.wrap" />
-        <item itemvalue="Python.leap_year" />
-        <item itemvalue="Python.call_analysis" />
+        <item itemvalue="Python.cuemath_hourly_report" />
+        <item itemvalue="Python.concat_csv_files" />
+        <item itemvalue="Python.cuemath_report" />
+        <item itemvalue="Python.red_code" />
+        <item itemvalue="Python.camera" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -258,6 +257,9 @@
     </task>
     <servers />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="428" y="124" width="800" height="677" key="#Web_Browsers" timestamp="1579711454835">
       <screen x="67" y="27" width="1533" height="873" />
@@ -267,76 +269,92 @@
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="291" y="120" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1533.873@67.27.1533.873" timestamp="1579541869128" />
+    <state x="516" y="190" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1585416651526">
+      <screen x="67" y="27" width="1533" height="873" />
+    </state>
+    <state x="516" y="190" width="624" height="544" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/67.27.1533.873@67.27.1533.873" timestamp="1585416651526" />
     <state x="566" y="211" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580554044129">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="566" y="211" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1533.873@67.27.1533.873" timestamp="1580554044129" />
-    <state x="714" y="194" key="#xdebugger.evaluate" timestamp="1580802997650">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state x="449" y="272" width="972" height="553" key="#xdebugger.evaluate" timestamp="1587829734705">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state x="714" y="194" key="#xdebugger.evaluate/67.27.1533.873@67.27.1533.873" timestamp="1580802997650" />
-    <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl" timestamp="1582525420697">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state x="449" y="272" width="972" height="553" key="#xdebugger.evaluate/0.27.1600.824@0.27.1600.824" timestamp="1587829734705" />
+    <state x="714" y="194" key="#xdebugger.evaluate/67.27.1533.873@67.27.1533.873" timestamp="1587040666755" />
+    <state x="573" y="209" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587465369741">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl/67.27.1533.873@67.27.1533.873" timestamp="1582525420697" />
-    <state width="1510" height="312" key="GridCell.Tab.0.bottom" timestamp="1583388848635">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state x="573" y="209" key="FileChooserDialogImpl/0.27.1600.824@0.27.1600.824" timestamp="1587465369741" />
+    <state x="616" y="220" width="424" height="484" key="FileChooserDialogImpl/67.27.1533.873@67.27.1533.873" timestamp="1585731795717" />
+    <state width="1577" height="212" key="GridCell.Tab.0.bottom" timestamp="1587968796017">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1276" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1579172636027" />
-    <state width="1510" height="312" key="GridCell.Tab.0.bottom/67.27.1533.873@67.27.1533.873" timestamp="1583388848635" />
-    <state width="1510" height="312" key="GridCell.Tab.0.center" timestamp="1583388848633">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="212" key="GridCell.Tab.0.bottom/0.27.1600.824@0.27.1600.824" timestamp="1587968796017" />
+    <state width="1510" height="170" key="GridCell.Tab.0.bottom/67.27.1533.873@67.27.1533.873" timestamp="1587227124214" />
+    <state width="1577" height="212" key="GridCell.Tab.0.center" timestamp="1587968796017">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1276" height="175" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1579172636026" />
-    <state width="1510" height="312" key="GridCell.Tab.0.center/67.27.1533.873@67.27.1533.873" timestamp="1583388848633" />
-    <state width="1510" height="312" key="GridCell.Tab.0.left" timestamp="1583388848632">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="212" key="GridCell.Tab.0.center/0.27.1600.824@0.27.1600.824" timestamp="1587968796017" />
+    <state width="1510" height="170" key="GridCell.Tab.0.center/67.27.1533.873@67.27.1533.873" timestamp="1587227124214" />
+    <state width="1577" height="212" key="GridCell.Tab.0.left" timestamp="1587968796016">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1276" height="175" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1579172636025" />
-    <state width="1510" height="312" key="GridCell.Tab.0.left/67.27.1533.873@67.27.1533.873" timestamp="1583388848632" />
-    <state width="1510" height="312" key="GridCell.Tab.0.right" timestamp="1583388848634">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="212" key="GridCell.Tab.0.left/0.27.1600.824@0.27.1600.824" timestamp="1587968796016" />
+    <state width="1510" height="170" key="GridCell.Tab.0.left/67.27.1533.873@67.27.1533.873" timestamp="1587227124213" />
+    <state width="1577" height="212" key="GridCell.Tab.0.right" timestamp="1587968796017">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1276" height="175" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1579172636026" />
-    <state width="1510" height="312" key="GridCell.Tab.0.right/67.27.1533.873@67.27.1533.873" timestamp="1583388848634" />
-    <state width="1510" height="260" key="GridCell.Tab.1.bottom" timestamp="1582976948172">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="212" key="GridCell.Tab.0.right/0.27.1600.824@0.27.1600.824" timestamp="1587968796017" />
+    <state width="1510" height="170" key="GridCell.Tab.0.right/67.27.1533.873@67.27.1533.873" timestamp="1587227124214" />
+    <state width="1577" height="287" key="GridCell.Tab.1.bottom" timestamp="1587833876127">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1510" height="260" key="GridCell.Tab.1.bottom/67.27.1533.873@67.27.1533.873" timestamp="1582976948172" />
-    <state width="1510" height="260" key="GridCell.Tab.1.center" timestamp="1582976948171">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="287" key="GridCell.Tab.1.bottom/0.27.1600.824@0.27.1600.824" timestamp="1587833876127" />
+    <state width="1510" height="215" key="GridCell.Tab.1.bottom/67.27.1533.873@67.27.1533.873" timestamp="1587064550448" />
+    <state width="1577" height="287" key="GridCell.Tab.1.center" timestamp="1587833876126">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1510" height="260" key="GridCell.Tab.1.center/67.27.1533.873@67.27.1533.873" timestamp="1582976948171" />
-    <state width="1510" height="260" key="GridCell.Tab.1.left" timestamp="1582976948171">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="287" key="GridCell.Tab.1.center/0.27.1600.824@0.27.1600.824" timestamp="1587833876126" />
+    <state width="1510" height="215" key="GridCell.Tab.1.center/67.27.1533.873@67.27.1533.873" timestamp="1587064550448" />
+    <state width="1577" height="287" key="GridCell.Tab.1.left" timestamp="1587833876126">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1510" height="260" key="GridCell.Tab.1.left/67.27.1533.873@67.27.1533.873" timestamp="1582976948171" />
-    <state width="1510" height="260" key="GridCell.Tab.1.right" timestamp="1582976948171">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state width="1577" height="287" key="GridCell.Tab.1.left/0.27.1600.824@0.27.1600.824" timestamp="1587833876126" />
+    <state width="1510" height="215" key="GridCell.Tab.1.left/67.27.1533.873@67.27.1533.873" timestamp="1587064550448" />
+    <state width="1577" height="287" key="GridCell.Tab.1.right" timestamp="1587833876126">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state width="1510" height="260" key="GridCell.Tab.1.right/67.27.1533.873@67.27.1533.873" timestamp="1582976948171" />
-    <state x="230" y="32" key="SettingsEditor" timestamp="1579441657663">
+    <state width="1577" height="287" key="GridCell.Tab.1.right/0.27.1600.824@0.27.1600.824" timestamp="1587833876126" />
+    <state width="1510" height="215" key="GridCell.Tab.1.right/67.27.1533.873@67.27.1533.873" timestamp="1587064550448" />
+    <state x="350" y="66" key="SettingsEditor" timestamp="1587105673161">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1579350528388" />
-    <state x="230" y="32" key="SettingsEditor/67.27.1533.873@67.27.1533.873" timestamp="1579441657663" />
-    <state x="427" y="259" key="com.intellij.ide.util.TipDialog" timestamp="1583316313453">
+    <state x="350" y="66" key="SettingsEditor/67.27.1533.873@67.27.1533.873" timestamp="1587105673161" />
+    <state x="427" y="259" key="com.intellij.ide.util.TipDialog" timestamp="1586332702984">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="372" y="224" key="com.intellij.ide.util.TipDialog/67.27.1299.741@67.27.1299.741" timestamp="1579350666325" />
-    <state x="427" y="259" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1583316313453" />
+    <state x="427" y="259" key="com.intellij.ide.util.TipDialog/67.27.1533.873@67.27.1533.873" timestamp="1586332702984" />
     <state x="487" y="80" width="683" height="764" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1579590788409">
       <screen x="67" y="27" width="1533" height="873" />
     </state>
     <state x="487" y="80" width="683" height="764" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1533.873@67.27.1533.873" timestamp="1579590788409" />
-    <state x="383" y="201" width="890" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1580802727790">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state x="330" y="191" width="890" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1587717606149">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state x="383" y="201" width="890" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1533.873@67.27.1533.873" timestamp="1580802727790" />
-    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup" timestamp="1582976575736">
-      <screen x="67" y="27" width="1533" height="873" />
+    <state x="330" y="191" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.27.1600.824@0.27.1600.824" timestamp="1587717606149" />
+    <state x="383" y="201" width="890" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1533.873@67.27.1533.873" timestamp="1584434904489" />
+    <state x="449" y="157" width="700" height="530" key="recent.locations.popup" timestamp="1587622172092">
+      <screen x="0" y="27" width="1600" height="824" />
     </state>
-    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup/67.27.1533.873@67.27.1533.873" timestamp="1582976575736" />
+    <state x="449" y="157" width="700" height="530" key="recent.locations.popup/0.27.1600.824@0.27.1600.824" timestamp="1587622172092" />
+    <state x="449" y="103" width="702" height="639" key="search.everywhere.popup" timestamp="1587806141047">
+      <screen x="0" y="27" width="1600" height="824" />
+    </state>
+    <state x="449" y="103" width="702" height="639" key="search.everywhere.popup/0.27.1600.824@0.27.1600.824" timestamp="1587806141047" />
+    <state x="497" y="108" width="672" height="676" key="search.everywhere.popup/67.27.1533.873@67.27.1533.873" timestamp="1586968315001" />
     <state x="558" y="375" width="540" height="175" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581576311415">
       <screen x="67" y="27" width="1533" height="873" />
     </state>

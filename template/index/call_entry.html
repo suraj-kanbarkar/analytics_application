@@ -1,40 +1,90 @@
 {% extends  'index.html' %}
 {% block tables %}
-{% if items.paginator.num_pages > 1 %}
 {% load static %}
 
 <script src="{% static 'urlcall.js' %}"></script>
 <script src="{% static 'csvurl.js' %}"></script>
-<form action="" method="get">
-    <h3>Call Entry</h3>
-    <input id="myInput" type="text" name="q_c_entry" placeholder="Search Here...">
-    <div class="pagination">
-    {% if items.has_previous %}
-        <a class="pagination-action" onclick="myFunction({{ 1 }})">
-            <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
-        <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-        </a>
-    {% endif %}
-    {% for num in items.paginator.page_range %}
-        {% if items.number == num %}
-            <span class="pagination-number pagination-current">{{ num }}</span>
-        {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
-            <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor"> {{ num }}</a>
-        {% endif %}
-    {% endfor %}
-    {% if items.has_next %}
-        <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-        </a>
-        <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-        </a>
+  <div class="position-absolute shadow p-4 mb-4 bg-white p-3" style="width: 98%; left: 1%;">
+    {% if items %}
+    <h3 class="float-left">Call Entry</h3>
+    <button class="btn btn-primary float-right" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>
+
+    <div class="table-responsive text-nowrap" style="overflow-x: auto">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="th-sm">ce_id</th>
+                <th class="th-sm">unique_id</th>
+                <th class="th-sm">id_agent</th>
+                <th class="th-sm">id_queue_call_entry</th>
+                <th class="th-sm">id_contact</th>
+                <th class="th-sm">caller_id</th>
+                <th class="th-sm">datetime_init</th>
+                <th class="th-sm">datetime_end</th>
+                <th class="th-sm">duration</th>
+                <th class="th-sm">status</th>
+                <th class="th-sm">transfer</th>
+                <th class="th-sm">datetime_entry_queue</th>
+                <th class="th-sm">duration_wait</th>
+                <th class="th-sm">id_campaign</th>
+                <th class="th-sm">trunk</th>
+              </tr>
+            </thead>
+            {% for j in items %}
+            <tbody id="myTable">
+              <tr>
+                <td>{{ j.ce_id }}</td>
+                <td>{{ j.unique_id }}</td>
+                <td>{{ j.id_agent }}</td>
+                <td>{{ j.id_queue_call_entry }}</td>
+                <td>{{ j.id_contact }}</td>
+                <td>{{ j.caller_id }}</td>
+                <td>{{ j.datetime_init }}</td>
+                <td>{{ j.datetime_end }}</td>
+                <td>{{ j.ce_duration }}</td>
+                <td>{{ j.status }}</td>
+                <td>{{ j.transfer }}</td>
+                <td>{{ j.datetime_entry_queue }}</td>
+                <td>{{ j.duration_wait }}</td>
+                <td>{{ j.id_campaign }}</td>
+                <td>{{ j.trunk }}</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h3 class="text-danger d-flex justify-content-center">No Results Found</h3>
     {% endif %}
     </div>
-    {% endif %}
-    {% if items %}
-</form>
+    <form action="" method="get">
+<!--        <input id="myInput" type="text" name="q_c_entry" placeholder="Search Here...">-->
+        <div class="pagination">
+        {% if items.paginator.num_pages > 1 %}
+        {% if items.has_previous %}
+            <a class="pagination-action" onclick="myFunction({{ 1 }})">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+            <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% for num in items.paginator.page_range %}
+            {% if items.number == num %}
+                <span class="pagination-number pagination-current">{{ num }}</span>
+            {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
+                <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor"> {{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if items.has_next %}
+            <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        </div>
+        {% endif %}
+    </form>
     <script>
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
@@ -45,52 +95,5 @@
       });
     });
     </script>
-    <div class="table-responsive text-nowrap" style="overflow-x: auto">
-    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">ce_id</th>
-        <th class="th-sm">unique_id</th>
-        <th class="th-sm">id_agent</th>
-        <th class="th-sm">id_queue_call_entry</th>
-        <th class="th-sm">id_contact</th>
-        <th class="th-sm">caller_id</th>
-        <th class="th-sm">datetime_init</th>
-        <th class="th-sm">datetime_end</th>
-        <th class="th-sm">duration</th>
-        <th class="th-sm">status</th>
-        <th class="th-sm">transfer</th>
-        <th class="th-sm">datetime_entry_queue</th>
-        <th class="th-sm">duration_wait</th>
-        <th class="th-sm">id_campaign</th>
-        <th class="th-sm">trunk</th>
-      </tr>
-    </thead>
-    {% for j in items %}
-        <tbody id="myTable">
-          <tr>
-            <td>{{ j.ce_id }}</td>
-            <td>{{ j.unique_id }}</td>
-            <td>{{ j.id_agent }}</td>
-            <td>{{ j.id_queue_call_entry }}</td>
-            <td>{{ j.id_contact }}</td>
-            <td>{{ j.caller_id }}</td>
-            <td>{{ j.datetime_init }}</td>
-            <td>{{ j.datetime_end }}</td>
-            <td>{{ j.ce_duration }}</td>
-            <td>{{ j.status }}</td>
-            <td>{{ j.transfer }}</td>
-            <td>{{ j.datetime_entry_queue }}</td>
-            <td>{{ j.duration_wait }}</td>
-            <td>{{ j.id_campaign }}</td>
-            <td>{{ j.trunk }}</td>
-          </tr>
-        </tbody>
-    {% endfor %}
-    {% endif %}
-    </table>
-    </div>
-    <div style="position:absolute; left:95%; top:12%; background-color:blank;">
-        <button class="btn btn-primary" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>
-    </div>
+</div>
 {% endblock %}

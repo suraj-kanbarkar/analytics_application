@@ -1,0 +1,257 @@
+{% extends  'index.html' %}
+{% block tables %}
+{% load static %}
+
+<script src="{% static 'urlcall.js' %}"></script>
+<script src="{% static 'csvurl.js' %}"></script>
+  <div class="position-absolute shadow p-4 mb-4 bg-white p-3" style="width: 98%; left: 1%;">
+    {% if items %}
+    <h3 class="float-left">Cuemath</h3>
+    <button class="btn btn-primary float-right" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>
+    <div class="table-responsive text-nowrap" style="overflow-x: auto">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+              <tr>
+                <th class="th-sm">date</th>
+                <th class="th-sm">agent_no</th>
+                <th class="th-sm">agent_name</th>
+                <th class="th-sm">login_time</th>
+                <th class="th-sm">logout_time</th>
+                <th class="th-sm">total_log_hrs</th>
+                <th class="th-sm">no_of_times_logged</th>
+                <th class="th-sm">tea_break</th>
+                <th class="th-sm">lunch_break</th>
+                <th class="th-sm">manual_dial_break</th>
+                <th class="th-sm">auxillary_break</th>
+                <th class="th-sm">total_break_hrs</th>
+                <th class="th-sm">OG_short_calls</th>
+                <th class="th-sm">IC_short_calls</th>
+                <th class="th-sm">OG_answered</th>
+                <th class="th-sm">OG_no_answered</th>
+                <th class="th-sm">OG_busy</th>
+                <th class="th-sm">OG_failed</th>
+                <th class="th-sm">IC_answered</th>
+                <th class="th-sm">OG_call_time</th>
+                <th class="th-sm">IC_call_time</th>
+                <th class="th-sm">talk_time</th>
+                <th class="th-sm">total_production_hrs</th>
+              </tr>
+            </thead>
+            {% for j in items %}
+            <tbody id="myTable">
+              <tr>
+                <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date }}</b></td>
+                <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.agent_no }}</b></td>
+                <td>{{ j.agent_name }}</td>
+                <td>{{ j.login_time }}</td>
+                <td>{{ j.logout_time }}</td>
+                <td>{{ j.total_log_hrs }}</td>
+                <td>{{ j.no_of_times_logged }}</td>
+                <td>{{ j.tea_break }}</td>
+                <td>{{ j.lunch_break }}</td>
+                <td>{{ j.manual_dial_break }}</td>
+                <td>{{ j.auxillary_break }}</td>
+                <td>{{ j.total_break_hrs_per_day }}</td>
+                <td>{{ j.outgoing_short_calls }}</td>
+                <td>{{ j.incoming_short_calls }}</td>
+                <td>{{ j.og_answered }}</td>
+                <td>{{ j.og_no_answered }}</td>
+                <td>{{ j.og_busy }}</td>
+                <td>{{ j.og_failed }}</td>
+                <td>{{ j.ic_answered }}</td>
+                <td>{{ j.outgoing_call_time }}</td>
+                <td>{{ j.incoming_call_time }}</td>
+                <td>{{ j.talk_time }}</td>
+                <td>{{ j.total_production_hrs }}</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h3 class="text-danger d-flex justify-content-center">No Results Found</h3>
+    {% endif %}
+    </div>
+    <form action="" method="get">
+<!--        <input id="myInput" type="text" name="q_c_entry" placeholder="Search Here...">-->
+        <div class="pagination">
+        {% if items.paginator.num_pages > 1 %}
+        {% if items.has_previous %}
+            <a class="pagination-action" onclick="myFunction({{ 1 }})">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+            <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% for num in items.paginator.page_range %}
+            {% if items.number == num %}
+                <span class="pagination-number pagination-current">{{ num }}</span>
+            {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
+                <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor"> {{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if items.has_next %}
+            <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        </div>
+        {% endif %}
+    </form>
+    <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+      <hr>
+      <div>
+          <div>
+              <h3> Search Agent </h3>
+              <label> Agent ID </label>
+              <input type="text" id="agent_id">
+              <label> Start Date </label>
+              <input type="date" id="s_date" name="startdate" placeholder="Start Date" required>
+              <label> End Date </label>
+              <input type="date" id="e_date" name="enddate" placeholder="Start Date" required>
+              <button type="submit" id="div1" class="btn btn-primary btn-sm"> Submit </button>
+           </div>
+      </div>
+        <hr>
+      <div class="table-responsive">
+       <table id="myTable1" class="table-striped text-nowrap table-bordered" style="width:50%;">
+           <thead class="text-black text-info th-lg">
+              <tr>
+                <th class="th-lg"></th>
+              </tr>
+            </thead>
+           <tbody class="text-black w-auto">
+              <tr>
+                <td class="td-lg"></td>
+              </tr>
+           </tbody>
+        </table>
+      </div>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    var s_date = document.getElementById("s_date").value;
+    var e_date = document.getElementById("e_date").value;
+    var agent_no = document.getElementById("agent_id").value;
+    $.ajax({
+        url: "/likepost?"+"&agent_no="+agent_no+"&startdate="+s_date+"&enddate="+e_date,
+        type: 'GET',
+        success: function (data) {
+            var table = document.getElementById("myTable1");
+            var header = table.createTHead();
+              var row = header.insertRow(-1);
+              var header1 = row.insertCell(-1);
+              var header2 = row.insertCell(-1);
+              var header4 = row.insertCell(-1);
+              var header5 = row.insertCell(-1);
+              var header6 = row.insertCell(-1);
+              var header7 = row.insertCell(-1);
+              var header8 = row.insertCell(-1);
+              var header9 = row.insertCell(-1);
+              var header10 = row.insertCell(-1);
+              var header11 = row.insertCell(-1);
+              var header12 = row.insertCell(-1);
+              var header13 = row.insertCell(-1);
+              var header14 = row.insertCell(-1);
+              var header15 = row.insertCell(-1);
+              var header16 = row.insertCell(-1);
+              var header17 = row.insertCell(-1);
+              var header18 = row.insertCell(-1);
+              var header19 = row.insertCell(-1);
+              var header20 = row.insertCell(-1);
+              var header21 = row.insertCell(-1);
+              var header22 = row.insertCell(-1);
+              var header23 = row.insertCell(-1);
+              header1.innerHTML = "<b>Date</b>";
+              header2.innerHTML = "<b>Agent No</b>";
+              header4.innerHTML = "<b>Login Time</b>";
+              header5.innerHTML = "<b>Logout Time</b>";
+              header6.innerHTML = "<b>Total Log Hrs</b>";
+              header7.innerHTML = "<b>Number of Times Logged</b>";
+              header8.innerHTML = "<b>Total Break Hrs</b>";
+              header9.innerHTML = "<b>Tea Break</b>";
+              header10.innerHTML = "<b>Lunch Break</b>";
+              header11.innerHTML = "<b>Manual Dial Break</b>";
+              header12.innerHTML = "<b>Auxillary Break</b>";
+              header13.innerHTML = "<b>Outgoing Short Calls</b>";
+              header14.innerHTML = "<b>Incoming Short Calls</b>";
+              header15.innerHTML = "<b>OG Answered</b>";
+              header16.innerHTML = "<b>OG No Answered</b>";
+              header17.innerHTML = "<b>OG Busy</b>";
+              header18.innerHTML = "<b>OG Failed</b>";
+              header19.innerHTML = "<b>IC Answered</b>";
+              header20.innerHTML = "<b>IC Call Time</b>";
+              header21.innerHTML = "<b>OG Call Time</b>";
+              header22.innerHTML = "<b>Talk Time</b>";
+              header23.innerHTML = "<b>Total Production Hrs</b>";
+
+            for (var i=0; i < data.posts.length; i++){
+                  console.log("yo")
+                  var row = table.insertRow(-1);
+                  var cell1 = row.insertCell(-1);
+                  var cell2 = row.insertCell(-1);
+                  var cell4 = row.insertCell(-1);
+                  var cell5 = row.insertCell(-1);
+                  var cell6 = row.insertCell(-1);
+                  var cell7 = row.insertCell(-1);
+                  var cell8 = row.insertCell(-1);
+                  var cell9 = row.insertCell(-1);
+                  var cell10 = row.insertCell(-1);
+                  var cell11 = row.insertCell(-1);
+                  var cell12 = row.insertCell(-1);
+                  var cell13 = row.insertCell(-1);
+                  var cell14 = row.insertCell(-1);
+                  var cell15 = row.insertCell(-1);
+                  var cell16 = row.insertCell(-1);
+                  var cell17 = row.insertCell(-1);
+                  var cell18 = row.insertCell(-1);
+                  var cell19 = row.insertCell(-1);
+                  var cell20 = row.insertCell(-1);
+                  var cell21 = row.insertCell(-1);
+                  var cell22 = row.insertCell(-1);
+                  var cell23 = row.insertCell(-1);
+                  cell1.innerHTML = data.posts[i].date;
+                  cell2.innerHTML = data.posts[i].agent_no;
+                  cell4.innerHTML = data.posts[i].login_time;
+                  cell5.innerHTML = data.posts[i].logout_time;
+                  cell6.innerHTML = data.posts[i].total_log_hrs;
+                  cell7.innerHTML = data.posts[i].no_of_times_logged;
+                  cell8.innerHTML = data.posts[i].total_break_hrs_per_day;
+                  cell9.innerHTML = data.posts[i].tea_break;
+                  cell10.innerHTML = data.posts[i].lunch_break;
+                  cell11.innerHTML = data.posts[i].manual_dial_break;
+                  cell12.innerHTML = data.posts[i].auxillary_break;
+                  cell13.innerHTML = data.posts[i].outgoing_short_calls;
+                  cell14.innerHTML = data.posts[i].incoming_short_calls;
+                  cell15.innerHTML = data.posts[i].og_answered;
+                  cell16.innerHTML = data.posts[i].og_no_answered;
+                  cell17.innerHTML = data.posts[i].og_busy;
+                  cell18.innerHTML = data.posts[i].og_failed;
+                  cell19.innerHTML = data.posts[i].ic_answered;
+                  cell20.innerHTML = data.posts[i].incoming_call_time;
+                  cell21.innerHTML = data.posts[i].outgoing_call_time;
+                  cell22.innerHTML = data.posts[i].talk_time;
+                  cell23.innerHTML = data.posts[i].total_production_hrs;
+
+            }
+        },
+        error: function(e) {
+            alert('Error: '+e);
+        }
+    });
+    });
+    });
+  </script>
+</div>
+{% endblock %}

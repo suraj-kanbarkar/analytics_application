@@ -25,10 +25,21 @@ input[type=input]:hover {
   background-color: #F0F8FF;
 }
 
+.navbar {
+  min-height: 80px;
+}
+
+.dropdown-menu {
+    min-width: 3rem;
+}
+
+
+
+
+
 .container_1 {
-    position: absolute;
+    position: static;
     left: 12%;
-    top: 19.5%;
     border-radius: 0px;
     background-color: #FFFFFF;
     padding: 10px;
@@ -36,10 +47,10 @@ input[type=input]:hover {
   }
 
   .container_2 {
-    position: absolute;
+    position: fixed;
     left: 0px;
-    height: 84%;
-    top: 147px;
+    height: 100%;
+    top: 10.1%;
     border-radius: 0px;
     background-color: #ADD8E6;
     padding: 10px;
@@ -49,34 +60,13 @@ input[type=input]:hover {
   .container_3 {
     position: fixed;
     left: 12%;
-    top: 19.3%;
+    top: 18.5%;
     background-color: #f2f2f2;
-    padding: 21.3%;
+    padding: 500px;
     width: 87.8%;
   }
 
-  .card-deck-1 {
-    position: absolute;
-    left: 5%;
-    top: 6%;
-    border-radius: 0px;
-    background-color: #f2f2f2;
-  }
 
-  .card-deck-2 {
-    position: absolute;
-    left: 5%;
-    top: 50%;
-    border-radius: 0px;
-    background-color: #f2f2f2;
-  }
-
-  .card {display:inline-block;}
-
-  .card-body{
-  width: 19rem;
-  height: 9rem;
-  }
 
 .col-25 {
   float: left;
@@ -186,59 +176,4 @@ body {
   width: 100%;
   position: relative;
   margin-right: 0;
-}
-
-/* Sidebar Styles */
-
-#sidebar {
-  z-index: 1000;
-  position: fixed;
-  left: 250px;
-  width: 250px;
-  height: 100%;
-  margin-left: -250px;
-  overflow-y: auto;
-  background: #37474F;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-#sidebar header {
-  background-color: #263238;
-  font-size: 20px;
-  line-height: 52px;
-  text-align: center;
-}
-
-#sidebar header a {
-  color: #fff;
-  display: block;
-  text-decoration: none;
-}
-
-#sidebar header a:hover {
-  color: #fff;
-}
-
-#sidebar .nav{
-
-}
-
-#sidebar .nav a{
-  background: none;
-  border-bottom: 1px solid #455A64;
-  color: #CFD8DC;
-  font-size: 14px;
-  padding: 16px 24px;
-}
-
-#sidebar .nav a:hover{
-  background: none;
-  color: #ECEFF1;
-}
-
-#sidebar .nav a i{
-  margin-right: 16px;
 }

@@ -1,5 +1,5 @@
 function getcsv(){
-    url = "http://127.0.0.1:8000/"
+    url = window.location.href
     sdate = localStorage.getItem('sdate');
     edate = localStorage.getItem('edate');
     file = localStorage.getItem('file');

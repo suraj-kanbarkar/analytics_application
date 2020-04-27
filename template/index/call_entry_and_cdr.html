@@ -1,41 +1,132 @@
 {% extends  'index.html' %}
 {% block tables %}
-{% if items.paginator.num_pages > 1 %}
 {% load static %}
 
 <script src="{% static 'urlcall.js' %}"></script>
 <script src="{% static 'csvurl.js' %}"></script>
+ <div class="position-absolute shadow p-4 mb-4 bg-white p-3" style="width: 98%; left: 1%;">
+    {% if items %}
+    <h3 class="float-left">Call Entry And CDR</h3>
+    <button class="btn btn-primary float-right" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>
 
-<form action="" method="get">
-    <h4>Call Entry And CDR</h4>
-    <input id="myInput" type="text" name="q_ce_and_cdr" placeholder="Search Here..." required>
-    <div class="pagination">
-    {% if items.has_previous %}
-        <a class="pagination-action" onclick="myFunction({{ 1 }})">
-            <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
-        <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-        </a>
-    {% endif %}
-    {% for num in items.paginator.page_range %}
-        {% if items.number == num %}
-            <span class="pagination-number pagination-current">{{ num }}</span>
-        {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
-            <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor">{{ num }}</a>
-        {% endif %}
-    {% endfor %}
-    {% if items.has_next %}
-        <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-        </a>
-        <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-        </a>
+    <div class="table-responsive text-nowrap" style="overflow-x: auto">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="th-sm">unique_id</th>
+                <th class="th-sm">ce_id</th>
+                <th class="th-sm">id_agent</th>
+                <th class="th-sm">id_queue_call_entry</th>
+                <th class="th-sm">id_contact</th>
+                <th class="th-sm">caller_id</th>
+                <th class="th-sm">call_date</th>
+                <th class="th-sm">datetime_init</th>
+                <th class="th-sm">datetime_end</th>
+                <th class="th-sm">duration</th>
+                <th class="th-sm">status</th>
+                <th class="th-sm">transfer</th>
+                <th class="th-sm">datetime_entry_queue</th>
+                <th class="th-sm">duration_wait</th>
+                <th class="th-sm">id_campaign</th>
+                <th class="th-sm">cl_id</th>
+                <th class="th-sm">src</th>
+                <th class="th-sm">dst</th>
+                <th class="th-sm">d_context</th>
+                <th class="th-sm">channel</th>
+                <th class="th-sm">dst_channel</th>
+                <th class="th-sm">last_app</th>
+                <th class="th-sm">last_data</th>
+                <th class="th-sm">duration</th>
+                <th class="th-sm">bill_sec</th>
+                <th class="th-sm">amaflags</th>
+                <th class="th-sm">disposition</th>
+                <th class="th-sm">account_code</th>
+                <th class="th-sm">user_field</th>
+                <th class="th-sm">recording_file</th>
+                <th class="th-sm">c_num</th>
+                <th class="th-sm">c_nam</th>
+                <th class="th-sm">outbound_cnum</th>
+                <th class="th-sm">outbound_cnam</th>
+                <th class="th-sm">dst_cnam</th>
+                <th class="th-sm">did</th>
+              </tr>
+            </thead>
+        {% for j in items %}
+            <tbody id="myTable">
+              <tr>
+                <td>{{ j.unique_id }}</td>
+                <td>{{ j.ce_id }}</td>
+                <td>{{ j.id_agent }}</td>
+                <td>{{ j.id_queue_call_entry }}</td>
+                <td>{{ j.id_contact }}</td>
+                <td>{{ j.caller_id }}</td>
+                <td>{{ j.call_date }}</td>
+                <td>{{ j.datetime_init }}</td>
+                <td>{{ j.datetime_end }}</td>
+                <td>{{ j.ce_duration }}</td>
+                <td>{{ j.status }}</td>
+                <td>{{ j.transfer }}</td>
+                <td>{{ j.datetime_entry_queue }}</td>
+                <td>{{ j.duration_wait }}</td>
+                <td>{{ j.id_campaign }}</td>
+                <td>{{ j.cl_id }}</td>
+                <td>{{ j.src }}</td>
+                <td>{{ j.dst }}</td>
+                <td>{{ j.d_context }}</td>
+                <td>{{ j.channel }}</td>
+                <td>{{ j.dst_channel }}</td>
+                <td>{{ j.last_app }}</td>
+                <td>{{ j.last_data }}</td>
+                <td>{{ j.cdr_duration }}</td>
+                <td>{{ j.bill_sec }}</td>
+                <td>{{ j.amaflags }}</td>
+                <td>{{ j.disposition }}</td>
+                <td>{{ j.account_code }}</td>
+                <td>{{ j.user_field }}</td>
+                <td>{{ j.recording_file }}</td>
+                <td>{{ j.c_num }}</td>
+                <td>{{ j.c_nam }}</td>
+                <td>{{ j.outbound_cnum }}</td>
+                <td>{{ j.outbound_cnam }}</td>
+                <td>{{ j.dst_cnam }}</td>
+                <td>{{ j.did }}</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h3 class="text-danger d-flex justify-content-center">No Results Found</h3>
     {% endif %}
     </div>
-    {% endif %}
-    {% if items %}
-    </form>
+    <form action="" method="get">
+<!--        <input id="myInput" type="text" name="q_ce_and_cdr" placeholder="Search Here..." required>-->
+        <div class="pagination">
+        {% if items.paginator.num_pages > 1 %}
+        {% if items.has_previous %}
+            <a class="pagination-action" onclick="myFunction({{ 1 }})">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+            <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% for num in items.paginator.page_range %}
+            {% if items.number == num %}
+                <span class="pagination-number pagination-current">{{ num }}</span>
+            {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
+                <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if items.has_next %}
+            <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        </div>
+        {% endif %}
+        </form>
     <script>
     $(document).ready(function(){
       $("#myInput").on("keyup", function() {
@@ -46,94 +137,5 @@
       });
     });
     </script>
-    <div class="table-responsive text-nowrap" style="overflow-x: auto">
-    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">unique_id</th>
-        <th class="th-sm">ce_id</th>
-        <th class="th-sm">id_agent</th>
-        <th class="th-sm">id_queue_call_entry</th>
-        <th class="th-sm">id_contact</th>
-        <th class="th-sm">caller_id</th>
-        <th class="th-sm">call_date</th>
-        <th class="th-sm">datetime_init</th>
-        <th class="th-sm">datetime_end</th>
-        <th class="th-sm">duration</th>
-        <th class="th-sm">status</th>
-        <th class="th-sm">transfer</th>
-        <th class="th-sm">datetime_entry_queue</th>
-        <th class="th-sm">duration_wait</th>
-        <th class="th-sm">id_campaign</th>
-        <th class="th-sm">cl_id</th>
-        <th class="th-sm">src</th>
-        <th class="th-sm">dst</th>
-        <th class="th-sm">d_context</th>
-        <th class="th-sm">channel</th>
-        <th class="th-sm">dst_channel</th>
-        <th class="th-sm">last_app</th>
-        <th class="th-sm">last_data</th>
-        <th class="th-sm">duration</th>
-        <th class="th-sm">bill_sec</th>
-        <th class="th-sm">amaflags</th>
-        <th class="th-sm">disposition</th>
-        <th class="th-sm">account_code</th>
-        <th class="th-sm">user_field</th>
-        <th class="th-sm">recording_file</th>
-        <th class="th-sm">c_num</th>
-        <th class="th-sm">c_nam</th>
-        <th class="th-sm">outbound_cnum</th>
-        <th class="th-sm">outbound_cnam</th>
-        <th class="th-sm">dst_cnam</th>
-        <th class="th-sm">did</th>
-      </tr>
-    </thead>
-    {% for j in items %}
-        <tbody id="myTable">
-          <tr>
-            <td>{{ j.unique_id }}</td>
-            <td>{{ j.ce_id }}</td>
-            <td>{{ j.id_agent }}</td>
-            <td>{{ j.id_queue_call_entry }}</td>
-            <td>{{ j.id_contact }}</td>
-            <td>{{ j.caller_id }}</td>
-            <td>{{ j.call_date }}</td>
-            <td>{{ j.datetime_init }}</td>
-            <td>{{ j.datetime_end }}</td>
-            <td>{{ j.ce_duration }}</td>
-            <td>{{ j.status }}</td>
-            <td>{{ j.transfer }}</td>
-            <td>{{ j.datetime_entry_queue }}</td>
-            <td>{{ j.duration_wait }}</td>
-            <td>{{ j.id_campaign }}</td>
-            <td>{{ j.cl_id }}</td>
-            <td>{{ j.src }}</td>
-            <td>{{ j.dst }}</td>
-            <td>{{ j.d_context }}</td>
-            <td>{{ j.channel }}</td>
-            <td>{{ j.dst_channel }}</td>
-            <td>{{ j.last_app }}</td>
-            <td>{{ j.last_data }}</td>
-            <td>{{ j.cdr_duration }}</td>
-            <td>{{ j.bill_sec }}</td>
-            <td>{{ j.amaflags }}</td>
-            <td>{{ j.disposition }}</td>
-            <td>{{ j.account_code }}</td>
-            <td>{{ j.user_field }}</td>
-            <td>{{ j.recording_file }}</td>
-            <td>{{ j.c_num }}</td>
-            <td>{{ j.c_nam }}</td>
-            <td>{{ j.outbound_cnum }}</td>
-            <td>{{ j.outbound_cnam }}</td>
-            <td>{{ j.dst_cnam }}</td>
-            <td>{{ j.did }}</td>
-          </tr>
-        </tbody>
-    {% endfor %}
-    {% endif %}
-    </table>
-    </div>
-    <div style="position:absolute; left:89%; right:0px; top:0px; background-color:blank;">
-        <button class="btn btn-primary" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>
-    </div>
+</div>
 {% endblock %}

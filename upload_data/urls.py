@@ -20,5 +20,5 @@ from django.conf.urls import include
 urlpatterns = [
     # insert your url here 'csv_files'
     url(r'^', include('upload_files.urls')),
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 ]

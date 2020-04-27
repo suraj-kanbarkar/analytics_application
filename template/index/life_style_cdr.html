@@ -1,196 +1,564 @@
 {% extends  'index.html' %}
 {% block tables %}
-{% if items.paginator.num_pages > 1 %}
-{% load static %}
 
-<script src="{% static 'urlcall.js' %}"></script>
-<script src="{% static 'csvurl.js' %}"></script>
-<form action="" method="GET">
-    <h3>Lifestyle CDR</h3>
-    <input id="myInput" type="text" name="q_life_cdr" placeholder="Search Here..." required>
-    <div class="pagination">
-    {% if items.has_previous %}
-        <a class="pagination-action" onclick="myFunction({{ 1 }})">
-            <i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
-        <a class="pagination-action" onclick="myFunction({{ items.previous_page_number }})">
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-        </a>
-    {% endif %}
-    {% for num in items.paginator.page_range %}
-        {% if items.number == num %}
-            <span class="pagination-number pagination-current">{{ num }}</span>
-        {% elif num > items.number|add:'-5' and num < items.number|add:'5' %}
-            <a class="pagination-number" onclick="myFunction({{ num }})" id="anchor">{{ num }}</a>
-        {% endif %}
-    {% endfor %}
-    {% if items.has_next %}
-        <a class="pagination-action" onclick="myFunction({{ items.next_page_number }})">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-        </a>
-        <a class="pagination-action" onclick="myFunction({{ items.paginator.num_pages }})">
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-        </a>
-    {% endif %}
+<div class="position-absolute shadow p-4 mb-4 bg-white p-3" style="width: 98%; left: 1%;">
+    {% if items_0 %}
+    <!--    Lifestyle CDR Inbound Performance table-->
+        <h3 class="float-left">Lifestyle CDR Inbound Performance</h3>
+<!--        <button class="btn btn-primary float-right" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>-->
+        <div class="table-responsive text-nowrap">
+            <table id="0" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+                  <tr>
+                    <th class="th-sm">Day</th>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">Calls Offered</th>
+                    <th class="th-sm">Calls Answered</th>
+                    <th class="th-sm">Calls Answered (SL)</th>
+                    <th class="th-sm">Abandoned</th>
+                    <th class="th-sm">Calls Answered %</th>
+                    <th class="th-sm">Service Level %</th>
+                    <th class="th-sm">Abandoned %</th>
+                    <th class="th-sm">Abandoned (<20 sec) %</th>
+                    <th class="th-sm">Abandoned (<20 sec)</th>
+                    <th class="th-sm">Calls Answered % (-20 sec)</th>
+                    <th class="th-sm">Service Level % (-20 sec)</th>
+                    <th class="th-sm">Calls Answered (SL - 10s)</th>
+                    <th class="th-sm">Service Level (10 Sec )</th>
+                    <th class="th-sm">Service Level % (-10 sec)</th>
+                    <th class="th-sm">Abandoned (<10 sec)</th>
+                    <th class="th-sm">Abandoned (<10 sec) %</th>
+                  </tr>
+                </thead>
+            {% for j in items_0 %}
+                <tbody id="myTable_0">
+                  <tr>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.day }}</b></td>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date }}</b></td>
+                    <td>{{ j.calls_offered }}</td>
+                    <td>{{ j.calls_answered }}</td>
+                    <td>{{ j.calls_answered_sl }}</td>
+                    <td>{{ j.abandoned }}</td>
+                    <td>{{ j.calls_ans_percentage }}%</td>
+                    <td>{{ j.service_level_percentage }}%</td>
+                    <td>{{ j.abandoned_percentage }}%</td>
+                    <td>{{ j.abandoned_less_than_20_sec_percentage }}%</td>
+                    <td>{{ j.aband_on_que_less_20_sec }}</td>
+                    <td>{{ j.calls_ans_less_than_20_sec_percentage }}%</td>
+                    <td>{{ j.service_level_less_than_20_sec_percentage }}%</td>
+                    <td>{{ j.calls_ans_sl_less_than_10_sec }}</td>
+                    <td>{{ j.service_level_less_than_10_sec }}%</td>
+                    <td>{{ j.service_level_less_than_10_sec_percentage }}%</td>
+                    <td>{{ j.abandoned_less_than_10_sec }}</td>
+                    <td>{{ j.aband_on_que_less_10_sec_percentage }}%</td>
+                  </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    <hr>
+    <div id="line" style="overflow-x: auto;"></div>
+    <hr>
+
+    <!--    calls offered-->
+        <h3>Calls Offered</h3>
+        <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+            <table id="1" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+                  <tr>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">Grand Total</th>
+                    <th class="th-sm">10 AM - 11 AM</th>
+                    <th class="th-sm">11 AM - 12 PM</th>
+                    <th class="th-sm">12 PM - 1 PM</th>
+                    <th class="th-sm">1 PM - 2 PM</th>
+                    <th class="th-sm">2 PM - 3 PM</th>
+                    <th class="th-sm">3 PM - 4 PM</th>
+                    <th class="th-sm">4 PM - 5 PM</th>
+                    <th class="th-sm">5 PM - 6 PM</th>
+                    <th class="th-sm">6 PM - 7 PM</th>
+                    <th class="th-sm">7 PM - 8 PM</th>
+                    <th class="th-sm">8 PM - 9 PM</th>
+                    <th class="th-sm">9 PM - 10 PM</th>
+                  </tr>
+                </thead>
+            {% for j in items_1 %}
+                <tbody id="myTable_1">
+                  <tr>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.calls_offered_count }}</b></td>
+                    <td>{{ j.10_11 }}</td>
+                    <td>{{ j.11_12 }}</td>
+                    <td>{{ j.12_13 }}</td>
+                    <td>{{ j.13_14 }}</td>
+                    <td>{{ j.14_15 }}</td>
+                    <td>{{ j.15_16 }}</td>
+                    <td>{{ j.16_17 }}</td>
+                    <td>{{ j.17_18 }}</td>
+                    <td>{{ j.18_19 }}</td>
+                    <td>{{ j.19_20 }}</td>
+                    <td>{{ j.20_21 }}</td>
+                    <td>{{ j.21_22 }}</td>
+                  </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    <hr>
+
+     <div id="calls_offered_chart"></div>
+
+    <hr>
+
+    <!--    Calls Answered-->
+        <h3>Calls Answered</h3>
+        <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+            <table id="2" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+                  <tr>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">Grand Total</th>
+                    <th class="th-sm">10 AM - 11 AM</th>
+                    <th class="th-sm">11 AM - 12 PM</th>
+                    <th class="th-sm">12 PM - 1 PM</th>
+                    <th class="th-sm">1 PM - 2 PM</th>
+                    <th class="th-sm">2 PM - 3 PM</th>
+                    <th class="th-sm">3 PM - 4 PM</th>
+                    <th class="th-sm">4 PM - 5 PM</th>
+                    <th class="th-sm">5 PM - 6 PM</th>
+                    <th class="th-sm">6 PM - 7 PM</th>
+                    <th class="th-sm">7 PM - 8 PM</th>
+                    <th class="th-sm">8 PM - 9 PM</th>
+                    <th class="th-sm">9 PM - 10 PM</th>
+                  </tr>
+                </thead>
+            {% for j in items_2 %}
+                <tbody id="myTable_2">
+                  <tr>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.calls_answered_count }}</b></td>
+                    <td>{{ j.10_11 }}</td>
+                    <td>{{ j.11_12 }}</td>
+                    <td>{{ j.12_13 }}</td>
+                    <td>{{ j.13_14 }}</td>
+                    <td>{{ j.14_15 }}</td>
+                    <td>{{ j.15_16 }}</td>
+                    <td>{{ j.16_17 }}</td>
+                    <td>{{ j.17_18 }}</td>
+                    <td>{{ j.18_19 }}</td>
+                    <td>{{ j.19_20 }}</td>
+                    <td>{{ j.20_21 }}</td>
+                    <td>{{ j.21_22 }}</td>
+                  </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    <hr>
+
+    <!--    Calls Answered Percentage-->
+        <h3>Calls Answered Percentage</h3>
+        <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+            <table id="3" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+                  <tr>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">Grand Total</th>
+                    <th class="th-sm">10 AM - 11 AM</th>
+                    <th class="th-sm">11 AM - 12 PM</th>
+                    <th class="th-sm">12 PM - 1 PM</th>
+                    <th class="th-sm">1 PM - 2 PM</th>
+                    <th class="th-sm">2 PM - 3 PM</th>
+                    <th class="th-sm">3 PM - 4 PM</th>
+                    <th class="th-sm">4 PM - 5 PM</th>
+                    <th class="th-sm">5 PM - 6 PM</th>
+                    <th class="th-sm">6 PM - 7 PM</th>
+                    <th class="th-sm">7 PM - 8 PM</th>
+                    <th class="th-sm">8 PM - 9 PM</th>
+                    <th class="th-sm">9 PM - 10 PM</th>
+                  </tr>
+                </thead>
+            {% for j in items_3 %}
+                <tbody id="myTable_3">
+                  <tr>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.calls_answered_count_percentage }}%</b></td>
+                    <td>{{ j.10_11 }}%</td>
+                    <td>{{ j.11_12 }}%</td>
+                    <td>{{ j.12_13 }}%</td>
+                    <td>{{ j.13_14 }}%</td>
+                    <td>{{ j.14_15 }}%</td>
+                    <td>{{ j.15_16 }}%</td>
+                    <td>{{ j.16_17 }}%</td>
+                    <td>{{ j.17_18 }}%</td>
+                    <td>{{ j.18_19 }}%</td>
+                    <td>{{ j.19_20 }}%</td>
+                    <td>{{ j.20_21 }}%</td>
+                    <td>{{ j.21_22 }}%</td>
+                  </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+        <hr>
+        <div id="calls_ans_chart"></div>
+        <hr>
+
+    <!--    Service Level Calls-->
+        <h3>Service Level Calls</h3>
+        <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+            <table id="4" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+                  <tr>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">Grand Total</th>
+                    <th class="th-sm">10 AM - 11 AM</th>
+                    <th class="th-sm">11 AM - 12 PM</th>
+                    <th class="th-sm">12 PM - 1 PM</th>
+                    <th class="th-sm">1 PM - 2 PM</th>
+                    <th class="th-sm">2 PM - 3 PM</th>
+                    <th class="th-sm">3 PM - 4 PM</th>
+                    <th class="th-sm">4 PM - 5 PM</th>
+                    <th class="th-sm">5 PM - 6 PM</th>
+                    <th class="th-sm">6 PM - 7 PM</th>
+                    <th class="th-sm">7 PM - 8 PM</th>
+                    <th class="th-sm">8 PM - 9 PM</th>
+                    <th class="th-sm">9 PM - 10 PM</th>
+                  </tr>
+                </thead>
+            {% for j in items_4 %}
+                <tbody id="myTable_4">
+                  <tr>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.service_level_calls_counts }}</b></td>
+                    <td>{{ j.10_11 }}</td>
+                    <td>{{ j.11_12 }}</td>
+                    <td>{{ j.12_13 }}</td>
+                    <td>{{ j.13_14 }}</td>
+                    <td>{{ j.14_15 }}</td>
+                    <td>{{ j.15_16 }}</td>
+                    <td>{{ j.16_17 }}</td>
+                    <td>{{ j.17_18 }}</td>
+                    <td>{{ j.18_19 }}</td>
+                    <td>{{ j.19_20 }}</td>
+                    <td>{{ j.20_21 }}</td>
+                    <td>{{ j.21_22 }}</td>
+                  </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    <hr>
+
+    <!--    Service Level Calls Percentage-->
+        <h3>Service Level Calls Percentage</h3>
+        <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+            <table id="5" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+                  <tr>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">Grand Total</th>
+                    <th class="th-sm">10 AM - 11 AM</th>
+                    <th class="th-sm">11 AM - 12 PM</th>
+                    <th class="th-sm">12 PM - 1 PM</th>
+                    <th class="th-sm">1 PM - 2 PM</th>
+                    <th class="th-sm">2 PM - 3 PM</th>
+                    <th class="th-sm">3 PM - 4 PM</th>
+                    <th class="th-sm">4 PM - 5 PM</th>
+                    <th class="th-sm">5 PM - 6 PM</th>
+                    <th class="th-sm">6 PM - 7 PM</th>
+                    <th class="th-sm">7 PM - 8 PM</th>
+                    <th class="th-sm">8 PM - 9 PM</th>
+                    <th class="th-sm">9 PM - 10 PM</th>
+                  </tr>
+                </thead>
+            {% for j in items_5 %}
+                <tbody id="myTable_5">
+                  <tr>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                    <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.s_l_calls_percentage }}%</b></td>
+                    <td>{{ j.10_11 }}%</td>
+                    <td>{{ j.11_12 }}%</td>
+                    <td>{{ j.12_13 }}%</td>
+                    <td>{{ j.13_14 }}%</td>
+                    <td>{{ j.14_15 }}%</td>
+                    <td>{{ j.15_16 }}%</td>
+                    <td>{{ j.16_17 }}%</td>
+                    <td>{{ j.17_18 }}%</td>
+                    <td>{{ j.18_19 }}%</td>
+                    <td>{{ j.19_20 }}%</td>
+                    <td>{{ j.20_21 }}%</td>
+                    <td>{{ j.21_22 }}%</td>
+                  </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    <hr>
+    <div id="service_level_calls_chart"></div>
+    <hr>
+
+    <!--    Abandoned Calls -->
+    <h3>Abandoned Calls</h3>
+    <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+        <table id="6" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+              <tr>
+                <th class="th-sm">Date</th>
+                <th class="th-sm">Grand Total</th>
+                <th class="th-sm">10 AM - 11 AM</th>
+                <th class="th-sm">11 AM - 12 PM</th>
+                <th class="th-sm">12 PM - 1 PM</th>
+                <th class="th-sm">1 PM - 2 PM</th>
+                <th class="th-sm">2 PM - 3 PM</th>
+                <th class="th-sm">3 PM - 4 PM</th>
+                <th class="th-sm">4 PM - 5 PM</th>
+                <th class="th-sm">5 PM - 6 PM</th>
+                <th class="th-sm">6 PM - 7 PM</th>
+                <th class="th-sm">7 PM - 8 PM</th>
+                <th class="th-sm">8 PM - 9 PM</th>
+                <th class="th-sm">9 PM - 10 PM</th>
+              </tr>
+            </thead>
+        {% for j in items_6 %}
+            <tbody id="myTable_6">
+              <tr>
+                <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.aband_on_que_counts }}</b></td>
+                <td>{{ j.10_11 }}</td>
+                <td>{{ j.11_12 }}</td>
+                <td>{{ j.12_13 }}</td>
+                <td>{{ j.13_14 }}</td>
+                <td>{{ j.14_15 }}</td>
+                <td>{{ j.15_16 }}</td>
+                <td>{{ j.16_17 }}</td>
+                <td>{{ j.17_18 }}</td>
+                <td>{{ j.18_19 }}</td>
+                <td>{{ j.19_20 }}</td>
+                <td>{{ j.20_21 }}</td>
+                <td>{{ j.21_22 }}</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+        </table>
     </div>
+    <hr>
+
+    <!--    Abandoned Calls Percentage-->
+    <h3>Abandoned Calls Percentage</h3>
+    <div class="table-responsive text-nowrap" style="overflow-x: auto;">
+        <table id="7" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead class="p-2 mb-2 text-black" style="background-color:#feda84;">
+              <tr>
+                <th class="th-sm">Date</th>
+                <th class="th-sm">Grand Total</th>
+                <th class="th-sm">10 AM - 11 AM</th>
+                <th class="th-sm">11 AM - 12 PM</th>
+                <th class="th-sm">12 PM - 1 PM</th>
+                <th class="th-sm">1 PM - 2 PM</th>
+                <th class="th-sm">2 PM - 3 PM</th>
+                <th class="th-sm">3 PM - 4 PM</th>
+                <th class="th-sm">4 PM - 5 PM</th>
+                <th class="th-sm">5 PM - 6 PM</th>
+                <th class="th-sm">6 PM - 7 PM</th>
+                <th class="th-sm">7 PM - 8 PM</th>
+                <th class="th-sm">8 PM - 9 PM</th>
+                <th class="th-sm">9 PM - 10 PM</th>
+              </tr>
+            </thead>
+        {% for j in items_7 %}
+            <tbody id="myTable_7">
+              <tr>
+                <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.date_month }}</b></td>
+                <td class="p-2 mb-2" style="background-color:#00c2c7;"><b>{{ j.aband_on_que_percentage }}%</b></td>
+                <td>{{ j.10_11 }}%</td>
+                <td>{{ j.11_12 }}%</td>
+                <td>{{ j.12_13 }}%</td>
+                <td>{{ j.13_14 }}%</td>
+                <td>{{ j.14_15 }}%</td>
+                <td>{{ j.15_16 }}%</td>
+                <td>{{ j.16_17 }}%</td>
+                <td>{{ j.17_18 }}%</td>
+                <td>{{ j.18_19 }}%</td>
+                <td>{{ j.19_20 }}%</td>
+                <td>{{ j.20_21 }}%</td>
+                <td>{{ j.21_22 }}%</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    <hr>
+    <div id="abandoned_calls_chart"></div>
+    <hr>
+    {% else %}
+            <h3 class="text-danger d-flex justify-content-center">No Results Found</h3>
     {% endif %}
-    {% if items %}
-    </form>
-    <script>
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
+</div>
+
+<!--Inbound Performance Calls Chart-->
+<script type="text/javascript">
+    offeredCalls = []
+    AnsCalls = []
+    serviceLevelCalls = []
+    abandoned = []
+    date = []
+        {% for i in items_0 %}
+            date.push("{{ i.date }}");
+            offeredCalls.push({{ i.calls_offered }});
+            AnsCalls.push({{ i.calls_answered }});
+            serviceLevelCalls.push({{ i.calls_answered_sl }});
+            abandoned.push({{ i.abandoned }});
+        {% endfor %}
+
+    lifeStyleFinalLineChartsByDate(offeredCalls,1);
+    lifeStyleFinalLineChartsByDate(AnsCalls,2);
+    lifeStyleFinalLineChartsByDate(serviceLevelCalls, 3);
+    lifeStyleFinalLineChartsByDate(abandoned, 4);
+    lifeStyleFinalLineChartsByDate(date, 5);
+
     </script>
-    <div class="table-responsive text-nowrap" style="overflow-x: auto">
-    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">S_No</th>
-        <th class="th-sm">TFN</th>
-        <th class="th-sm">Campaign</th>
-        <th class="th-sm">PBX_Entry_Time</th>
-        <th class="th-sm">Queue_Entry_Time</th>
-        <th class="th-sm">Call_Start_Time</th>
-        <th class="th-sm">Call_End_Time</th>
-        <th class="th-sm">Source</th>
-        <th class="th-sm">Destination</th>
-        <th class="th-sm">IVR_Time</th>
-        <th class="th-sm">Talk_Time</th>
-        <th class="th-sm">Queue_Wait_Time</th>
-        <th class="th-sm">Status</th>
-        <th class="th-sm">Transfer_Number</th>
-        <th class="th-sm">PBX_Unqiue_ID</th>
-      </tr>
-    </thead>
-    {% for j in items %}
-        <tbody id="myTable">
-          <tr>
-            <td>{{ j.S_No }}</td>
-            <td>{{ j.TFN }}</td>
-            <td>{{ j.Campaign }}</td>
-            <td>{{ j.PBX_Entry_Time }}</td>
-            <td>{{ j.Queue_Entry_Time }}</td>
-            <td>{{ j.Call_Start_Time }}</td>
-            <td>{{ j.Call_End_Time }}</td>
-            <td>{{ j.Source }}</td>
-            <td>{{ j.Destination }}</td>
-            <td>{{ j.IVR_Time }}</td>
-            <td>{{ j.Talk_Time }}</td>
-            <td>{{ j.Queue_Wait_Time }}</td>
-            <td>{{ j.Status }}</td>
-            <td>{{ j.Transfer_Number }}</td>
-            <td>{{ j.PBX_Unqiue_ID }}</td>
-          </tr>
-        </tbody>
-    {% endfor %}
-    {% endif %}
-    </table>
-    </div>
-    <div style="position:absolute; left:89%; right:0px; top:5%; background-color:blank;">
-        <button class="btn btn-primary" onclick="getcsv()" id="csv" value="csv" name="csv">csv</button>
-    </div>
 
-    <h3>Lifestyle CDR Inbound Performance</h3>
-    <div class="table-responsive text-nowrap" style="overflow-x: auto; top:50%;">
-    <table id="2" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">Day</th>
-        <th class="th-sm">Date</th>
-        <th class="th-sm">Calls Offered</th>
-        <th class="th-sm">Calls Answered</th>
-        <th class="th-sm">Calls Answered (SL)</th>
-        <th class="th-sm">Abandoned</th>
-        <th class="th-sm">Calls Answered %</th>
-        <th class="th-sm">Service Level %</th>
-        <th class="th-sm">Abandoned %</th>
-        <th class="th-sm">Abandoned (<20 sec) %</th>
-        <th class="th-sm">Abandoned (<20 sec)</th>
-        <th class="th-sm">Calls Answered % (-20 sec)</th>
-        <th class="th-sm">Service Level % (-20 sec)</th>
-        <th class="th-sm">Calls Answered (SL - 10s)</th>
-        <th class="th-sm">Service Level (10 Sec )</th>
-        <th class="th-sm">Service Level % (-10 sec)</th>
-        <th class="th-sm">Abandoned (<10 sec)</th>
-        <th class="th-sm">Abandoned (<10 sec) %</th>
-      </tr>
-    </thead>
-        {% if items_2 %}
-        {% for j in items_2 %}
-        <tbody id="myTable_2">
-          <tr>
-            <td><b>{{ j.day }}</b></td>
-            <td><b>{{ j.date }}</b></td>
-            <td>{{ j.calls_offered }}</td>
-            <td>{{ j.calls_answered }}</td>
-            <td>{{ j.calls_answered_sl }}</td>
-            <td>{{ j.abandoned }}</td>
-            <td>{{ j.calls_ans_percentage }}%</td>
-            <td>{{ j.service_level_percentage }}%</td>
-            <td>{{ j.abandoned_percentage }}%</td>
-            <td>{{ j.abandoned_less_than_20_sec_percentage }}%</td>
-            <td>{{ j.aband_on_que_less_20_sec }}</td>
-            <td>{{ j.calls_ans_less_than_20_sec_percentage }}%</td>
-            <td>{{ j.service_level_less_than_20_sec_percentage }}%</td>
-            <td>{{ j.calls_ans_sl_less_than_10_sec }}</td>
-            <td>{{ j.service_level_less_than_10_sec }}</td>
-            <td>{{ j.service_level_less_than_10_sec_percentage }}%</td>
-            <td>{{ j.abandoned_less_than_10_sec }}</td>
-            <td>{{ j.aband_on_que_less_10_sec_percentage }}%</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-        {% endif %}
-    </table>
-    </div>
+<!--Offered Calls Chart-->
+<script type="text/javascript">
+        var offeredCalls = [];
+        var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+        {% with items_1|last as i%}
+          b += {{ i.10_11 }}
+          c += {{ i.11_12 }}
+          d += {{ i.12_13 }}
+          e += {{ i.13_14 }}
+          f += {{ i.14_15 }}
+          g += {{ i.15_16 }}
+          h += {{ i.16_17 }}
+          j += {{ i.17_18 }}
+          k += {{ i.18_19 }}
+          l += {{ i.19_20 }}
+          m += {{ i.20_21 }}
+          n += {{ i.21_22 }}
+        {% endwith %}
+          offeredCalls.push(b, c, d, e, f, g,h,j,k,l,m,n);
+          lifeStyleCdrCallsOfferedCharts(offeredCalls);
+        </script>
 
-    <h3>Lifestyle CDR Inbound Performance</h3>
-    <div class="table-responsive text-nowrap" style="overflow-x: auto; top:50%;">
-    <table id="3" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th class="th-sm">Date</th>
-        <th class="th-sm">Grand Total</th>
-        <th class="th-sm">10 AM - 11 AM</th>
-        <th class="th-sm">11 AM - 12 PM</th>
-        <th class="th-sm">12 PM - 1 PM</th>
-        <th class="th-sm">1 PM - 2 PM</th>
-        <th class="th-sm">2 PM - 3 PM</th>
-        <th class="th-sm">3 PM - 4 PM</th>
-        <th class="th-sm">4 PM - 5 PM</th>
-        <th class="th-sm">5 PM - 6 PM</th>
-        <th class="th-sm">6 PM - 7 PM</th>
-        <th class="th-sm">7 PM - 8 PM</th>
-        <th class="th-sm">8 PM - 9 PM</th>
-        <th class="th-sm">9 PM - 10 PM</th>
-      </tr>
-    </thead>
-        {% if items_3 %}
-        {% for j in items_3 %}
-        <tbody id="myTable_3">
-          <tr>
-            <td><b>{{ j.date_month }}</b></td>
-            <td><b>{{ j.count }}</b></td>
-            <td>{{ j.10_11 }}</td>
-            <td>{{ j.11_12 }}</td>
-            <td>{{ j.12_13 }}</td>
-            <td>{{ j.13_14 }}</td>
-            <td>{{ j.14_15 }}</td>
-            <td>{{ j.15_16 }}</td>
-            <td>{{ j.16_17 }}</td>
-            <td>{{ j.17_18 }}</td>
-            <td>{{ j.18_19 }}</td>
-            <td>{{ j.19_20 }}</td>
-            <td>{{ j.20_21 }}</td>
-            <td>{{ j.21_22 }}</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-        {% endif %}
-    </table>
-    </div>
+<!--Answered Calls Chart-->
+<script type="text/javascript">
+        var AnsCallsCount = [];
+        var AnsCallsPercentage = [];
+        var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+        {% with items_2|last as i%}
+          b += {{ i.10_11 }};
+          c += {{ i.11_12 }};
+          d += {{ i.12_13 }};
+          e += {{ i.13_14 }};
+          f += {{ i.14_15 }};
+          g += {{ i.15_16 }};
+          h += {{ i.16_17 }};
+          j += {{ i.17_18 }};
+          k += {{ i.18_19 }};
+          l += {{ i.19_20 }};
+          m += {{ i.20_21 }};
+          n += {{ i.21_22 }};
+        {% endwith %}
+        AnsCallsCount.push(b, c, d, e, f, g,h,j,k,l,m,n);
+
+        {% with items_3|last as i %}
+            var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+              b += {{ i.10_11 }};
+              c += {{ i.11_12 }};
+              d += {{ i.12_13 }};
+              e += {{ i.13_14 }};
+              f += {{ i.14_15 }};
+              g += {{ i.15_16 }};
+              h += {{ i.16_17 }};
+              j += {{ i.17_18 }};
+              k += {{ i.18_19 }};
+              l += {{ i.19_20 }};
+              m += {{ i.20_21 }};
+              n += {{ i.21_22 }};
+            AnsCallsPercentage.push(b, c, d, e, f, g, h, j, k, l, m, n);
+        {% endwith %}
+        lifeStyleCdrCallsAnsCharts(AnsCallsCount, AnsCallsPercentage);
+
+        </script>
+
+<!--Service Level Calls Chart-->
+<script type="text/javascript">
+        var serviceLevelCalls = [];
+        var serviceLevelCallsPercentage = [];
+        var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+        {% with items_4|last as i%}
+          b += {{ i.10_11 }}
+          c += {{ i.11_12 }}
+          d += {{ i.12_13 }}
+          e += {{ i.13_14 }}
+          f += {{ i.14_15 }}
+          g += {{ i.15_16 }}
+          h += {{ i.16_17 }}
+          j += {{ i.17_18 }}
+          k += {{ i.18_19 }}
+          l += {{ i.19_20 }}
+          m += {{ i.20_21 }}
+          n += {{ i.21_22 }}
+        {% endwith %}
+        serviceLevelCalls.push(b, c, d, e, f, g,h,j,k,l,m,n);
+
+        {% with items_5|last as i %}
+            var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+              b += {{ i.10_11 }};
+              c += {{ i.11_12 }};
+              d += {{ i.12_13 }};
+              e += {{ i.13_14 }};
+              f += {{ i.14_15 }};
+              g += {{ i.15_16 }};
+              h += {{ i.16_17 }};
+              j += {{ i.17_18 }};
+              k += {{ i.18_19 }};
+              l += {{ i.19_20 }};
+              m += {{ i.20_21 }};
+              n += {{ i.21_22 }};
+            serviceLevelCallsPercentage.push(b, c, d, e, f, g, h, j, k, l, m, n);
+        {% endwith %}
+        lifeStyleServiceLevelCallsCharts(serviceLevelCalls, serviceLevelCallsPercentage);
+    </script>
+
+<!--Abandoned Calls Chart-->
+<script type="text/javascript">
+        var abandonedCalls = [];
+        var abandonedCallsPercentage = [];
+        var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+        {% with items_6|last as i%}
+          b += {{ i.10_11 }}
+          c += {{ i.11_12 }}
+          d += {{ i.12_13 }}
+          e += {{ i.13_14 }}
+          f += {{ i.14_15 }}
+          g += {{ i.15_16 }}
+          h += {{ i.16_17 }}
+          j += {{ i.17_18 }}
+          k += {{ i.18_19 }}
+          l += {{ i.19_20 }}
+          m += {{ i.20_21 }}
+          n += {{ i.21_22 }}
+        {% endwith %}
+        abandonedCalls.push(b, c, d, e, f, g,h,j,k,l,m,n);
+
+        {% with items_7|last as i %}
+            var b = 0; var c = 0; var d = 0; var e = 0; var f = 0; var g = 0; var h = 0; var j = 0; var k = 0; var l = 0; var m = 0; var n = 0;
+              b += {{ i.10_11 }};
+              c += {{ i.11_12 }};
+              d += {{ i.12_13 }};
+              e += {{ i.13_14 }};
+              f += {{ i.14_15 }};
+              g += {{ i.15_16 }};
+              h += {{ i.16_17 }};
+              j += {{ i.17_18 }};
+              k += {{ i.18_19 }};
+              l += {{ i.19_20 }};
+              m += {{ i.20_21 }};
+              n += {{ i.21_22 }};
+            abandonedCallsPercentage.push(b, c, d, e, f, g, h, j, k, l, m, n);
+        {% endwith %}
+        abandonedCallsCharts(abandonedCalls, abandonedCallsPercentage);
+    </script>
 {% endblock %}

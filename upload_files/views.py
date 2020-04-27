@@ -1,16 +1,18 @@
-from django.http import JsonResponse
+import json
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.core import serializers
+from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.db.models import Q
 import djqscsv
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import *
 import datetime
-from datetime import timedelta, date
-from datetime import date
-import calendar
-from django.core.serializers import serialize
-import json
 from upload_files.analysis import dat
+from upload_files.cuemath_report import *
 
 
 # setting pagination for tables
@@ -37,6 +39,7 @@ def dictfetchall(cursor):
 def validation(request):
     if request.method == 'GET':
         file = request.GET.get('file')
+        print(file)
 
         if file == "callentry not matched":
             return call_entry_not_matched(request)
@@ -52,6 +55,8 @@ def validation(request):
             return call_entry_and_cdr(request)
         elif file == "lifestyle cdr":
             return lifestyle_cdr(request)
+        elif file == "cuemath":
+            return cuemath_report(request)
 
 
 # for call_entry
@@ -59,15 +64,15 @@ def call_entry(request):
     start_date = request.GET.get('startdate')
     end_dat = request.GET.get('enddate')
     end_date = datetime.datetime.strptime(end_dat, '%Y-%m-%d').date()  # converting str date into datetime format
-    end_date += datetime.timedelta(days=1)          # increment date by 1
+    end_date += datetime.timedelta(days=1)  # increment date by 1
     print(start_date, end_date)
     query = request.GET.get('q_c_entry')
     csv = request.GET.get('csv')
-    posts_list = CALL_ENTRY.objects.filter(datetime_init__gte=start_date, datetime_init__lte=end_date)
+    posts_list = CallEntry.objects.filter(datetime_init__gte=start_date, datetime_init__lte=end_date)
     if csv:
         return djqscsv.render_to_csv_response(posts_list)
     elif query:
-        posts_list = CALL_ENTRY.objects.filter(
+        posts_list = CallEntry.objects.filter(
             Q(unique_id__icontains=query) |
             Q(datetime_init__icontains=query) | Q(status__icontains=query)
         ).distinct()
@@ -86,11 +91,11 @@ def call_progress(request):
     print(start_date, end_date)
     query = request.GET.get('q_c_progress')
     csv = request.GET.get('csv')
-    posts_list = CALL_PROGRESS.objects.filter(datetime_entry__range=(start_date, end_date))
+    posts_list = CallProgress.objects.filter(datetime_entry__range=(start_date, end_date))
     if csv:
         return djqscsv.render_to_csv_response(posts_list)
     elif query:
-        posts_list = CALL_PROGRESS.objects.filter(
+        posts_list = CallProgress.objects.filter(
             Q(unique_id__icontains=query) |
             Q(datetime_entry__icontains=query) | Q(new_status__icontains=query)
         ).distinct()
@@ -108,11 +113,11 @@ def call_entry_and_cdr(request):
     print(start_date, end_date)
     query = request.GET.get('q_ce_and_cdr')
     csv = request.GET.get('csv')
-    posts_list = CALL_ENTRY_AND_CDR.objects.filter(call_date__range=(start_date, end_date))
+    posts_list = CallEntryAndCdr.objects.filter(call_date__range=(start_date, end_date))
     if csv:
         return djqscsv.render_to_csv_response(posts_list)
     elif query:
-        posts_list = CALL_ENTRY_AND_CDR.objects.filter(
+        posts_list = CallEntryAndCdr.objects.filter(
             Q(unique_id__icontains=query) | Q(call_date__icontains=query) |
             Q(datetime_init__icontains=query) | Q(status__icontains=query)
         ).distinct()
@@ -130,11 +135,11 @@ def cdr(request):
     print(start_date, end_date)
     query = request.GET.get('q_cdr')
     csv = request.GET.get('csv')
-    posts_list = CDR.objects.filter(call_date__range=(start_date, end_date))
+    posts_list = Cdr.objects.filter(call_date__range=(start_date, end_date))
     if csv:
         return djqscsv.render_to_csv_response(posts_list)
     elif query:
-        posts_list = CDR.objects.filter(
+        posts_list = Cdr.objects.filter(
             Q(unique_id__icontains=query) |
             Q(call_date__icontains=query) | Q(disposition__icontains=query)
         ).distinct()
@@ -152,11 +157,11 @@ def call_entry_not_matched(request):
     print(start_date, end_date)
     query = request.GET.get('q_ce_not_matched')
     csv = request.GET.get('csv')
-    posts_list = CALL_ENTRY_AND_CDR_NOT_MATCHED.objects.filter(datetime_entry_queue__range=(start_date, end_date))
+    posts_list = CallEntryAndCdrNotMatched.objects.filter(datetime_entry_queue__range=(start_date, end_date))
     if csv:
         return djqscsv.render_to_csv_response(posts_list)
     elif query:
-        posts_list = CALL_ENTRY_AND_CDR_NOT_MATCHED.objects.filter(
+        posts_list = CallEntryAndCdrNotMatched.objects.filter(
             Q(unique_id__icontains=query) |
             Q(datetime_entry_queue__icontains=query) | Q(disposition__icontains=query)
         ).distinct()
@@ -174,11 +179,11 @@ def cdr_not_matched(request):
     print(start_date, end_date)
     query = request.GET.get('q_cdr_not_matched')
     csv = request.GET.get('csv')
-    posts_list = CDR_AND_CALL_ENTRY_NOT_MATCHED.objects.filter(call_date__range=(start_date, end_date))
+    posts_list = CdrAndCallEntryNotMatched.objects.filter(call_date__range=(start_date, end_date))
     if csv:
         return djqscsv.render_to_csv_response(posts_list)
     elif query:
-        posts_list = CDR_AND_CALL_ENTRY_NOT_MATCHED.objects.filter(
+        posts_list = CdrAndCallEntryNotMatched.objects.filter(
             Q(unique_id__icontains=query) |
             Q(call_date__icontains=query) | Q(disposition__icontains=query)
         ).distinct()
@@ -187,55 +192,80 @@ def cdr_not_matched(request):
     return render(request, 'cdr_not_matched.html', {'items': data})
 
 
+# lifestyle cdr performance report
 def lifestyle_cdr(request):
     s_date = request.GET.get('startdate')
     e_date = request.GET.get('enddate')
+    e_date = datetime.datetime.strptime(e_date[:10], '%Y-%m-%d')  # converting str date into datetime format
+    s_date = datetime.datetime.strptime(s_date[:10], '%Y-%m-%d')  # converting str date into datetime format
+    e_date += datetime.timedelta(days=1)  # increment date by 1
+    print(s_date, e_date)
+    csv = request.GET.get('csv')
+    posts_list = CdrLifestyle.objects.filter(Queue_Entry_Time__range=(s_date, e_date))
+    if posts_list:
+        posts_list = posts_list.order_by('Queue_Entry_Time')
+        data_2 = dat(posts_list)
+        if csv:
+            return djqscsv.render_to_csv_response(posts_list)
+        # data = serializers.serialize('json', data)
+        return render(request, 'life_style_cdr.html', {'items_0': data_2[0],
+                                                       'items_1': data_2[1],
+                                                       'items_2': data_2[2],
+                                                       'items_3': data_2[3],
+                                                       'items_4': data_2[4],
+                                                       'items_5': data_2[5],
+                                                       'items_6': data_2[6],
+                                                       'items_7': data_2[7],
+                                                       'date_month': data_2[8]
+                                                       })
+    else:
+        return render(request, 'life_style_cdr.html')
+
+
+# cuemath agent performance report
+def cuemath_report(request):
+    s_date = request.GET.get('startdate')
+    e_date = request.GET.get('enddate')
+    page = request.GET.get('page')
+    csv = request.GET.get('csv')
     e_date = datetime.datetime.strptime(e_date, '%Y-%m-%d')  # converting str date into datetime format
     s_date = datetime.datetime.strptime(s_date, '%Y-%m-%d')  # converting str date into datetime format
     e_date += datetime.timedelta(days=1)  # increment date by 1
-    # start_date = datetime.datetime.strftime(s_date, '%-m/%-d/%Y')
-    # end_date = datetime.datetime.strftime(e_date, '%-m/%-d/%Y')
     print(s_date, e_date)
-    query = request.GET.get('q_life_cdr')
-    csv = request.GET.get('csv')
-    posts_list = CDR_LIFESTYLE.objects.filter(Queue_Entry_Time__range=(s_date, e_date))
-    data_2 = dat(posts_list)
-    if csv:
-        return djqscsv.render_to_csv_response(posts_list)
-    # elif query:
-    #     posts_list = CDR_AND_CALL_ENTRY_NOT_MATCHED.objects.filter(
-    #         Q(unique_id__icontains=query) |
-    #         Q(call_date__icontains=query) | Q(disposition__icontains=query)
-    #     ).distinct()
-    page = request.GET.get('page')
-    data = paginate_query_set(posts_list, page)
-    return render(request, 'life_style_cdr.html', {'items': data,
-                                                   'items_2': data_2[0],
-                                                   'items_3': data_2[1]})
+    cdr_report = CdrReport.objects.filter(date__range=(s_date, e_date))
+    break_report = BreakReport.objects.filter(date__range=(s_date, e_date))
+    login_logout = LoginLogout.objects.filter(date_init__range=(s_date, e_date))
+    agent_id = AgentId.objects.all()
+    if cdr_report and break_report and login_logout and agent_id:
+        report = cuemath_report_analysis(cdr_report, break_report, login_logout, agent_id)
+        # download(request,report[1])
+        if csv:
+            return report[1]
+        data = paginate_query_set(report[0], page)
+        return render(request, 'cuemath.html', {'items': data
+                                            })
+    else:
+        return render(request, 'cuemath.html')
 
 
-# converting queryset to csv response
-def get_csv(request):
-    csv = request.GET.get('get_csv')
-    print(csv)
-    posts_list = CALLENTRY_TO_CDR_MATCHED.objects.all()
-    return djqscsv.render_to_csv_response(posts_list)
-
-
-def callentry():
-    posts_list = CALL_ENTRY.objects.all().values()
-    # a = json.loads(serialize('json', posts_list))
-    a = list(posts_list[10])
-    return JsonResponse(a, safe=False)
-    # return render(request, 'chart.html',{'items':data})
+def cuemath_agent_performance(request):
+    s_date = request.GET.get('startdate')
+    e_date = request.GET.get('enddate')
+    agent_no = request.GET.get('agent_no')
+    e_date = datetime.datetime.strptime(e_date, '%Y-%m-%d')  # converting str date into datetime format
+    s_date = datetime.datetime.strptime(s_date, '%Y-%m-%d')  # converting str date into datetime format
+    e_date += datetime.timedelta(days=1)  # increment date by 1
+    print(s_date, e_date, agent_no)
+    # posts = [{'source': i.source, 'des': i.destination} for i in CdrReport.objects.filter(date__range=(s_date, e_date)).filter(source=agent_no)]
+    cdr_report = CdrReport.objects.filter(date__range=(s_date, e_date)).filter(Q(source=agent_no) | Q(dst_channel=agent_no))
+    break_report = BreakReport.objects.filter(date__range=(s_date, e_date)).filter(no_agent=agent_no)
+    login_logout = LoginLogout.objects.filter(date_init__range=(s_date, e_date)).filter(agent=agent_no)
+    posts = cuemath_agent_report(cdr_report, break_report, login_logout)
+    return JsonResponse({"posts":  posts}, status=200)
 
 
 def reports(request):
     return render(request, 'table_call.html')
-
-
-def graphs(request):
-    return render(request, 'chart.html')
 
 
 # sending the all table data without filtering
@@ -244,13 +274,13 @@ class TABLES:
         self.GET = None
 
     def call_entry(self):
-        posts_list = CALL_ENTRY.objects.all()
+        posts_list = CallEntry.objects.all()
         query = self.GET.get('q_c_entry')
         csv = self.GET.get('csv')
         if csv:
             return djqscsv.render_to_csv_response(posts_list)
         if query:
-            posts_list = CALL_ENTRY.objects.filter(
+            posts_list = CallEntry.objects.filter(
                 Q(unique_id__icontains=query) |
                 Q(datetime_init__icontains=query) | Q(status__icontains=query)
             ).distinct()
@@ -259,13 +289,13 @@ class TABLES:
         return render(self, 'call_entry.html', {'items': data})
 
     def call_progress(self):
-        posts_list = CALL_PROGRESS.objects.all()
+        posts_list = CallProgress.objects.all()
         query = self.GET.get('q_c_progress')
         csv = self.GET.get('csv')
         if csv:
             return djqscsv.render_to_csv_response(posts_list)
         if query:
-            posts_list = CALL_PROGRESS.objects.filter(
+            posts_list = CallProgress.objects.filter(
                 Q(unique_id__icontains=query) |
                 Q(datetime_entry__icontains=query) | Q(new_status__icontains=query)
             ).distinct()
@@ -274,28 +304,29 @@ class TABLES:
         return render(self, 'call_progress.html', {'items': data})
 
     def cdr(self):
-        posts_list = CDR.objects.all()
+        posts_list = Cdr.objects.all()
         query = self.GET.get('q_cdr')
         csv = self.GET.get('csv')
         if csv:
             return djqscsv.render_to_csv_response(posts_list)
         if query:
-            posts_list = CDR.objects.filter(
+            posts_list = Cdr.objects.filter(
                 Q(unique_id__icontains=query) |
                 Q(call_date__icontains=query) | Q(disposition__icontains=query)
             ).distinct()
         page = self.GET.get('page')
         data = paginate_query_set(posts_list, page)
+        # data = serializers.serialize('json', data)
         return render(self, 'cdr.html', {'items': data})
 
     def call_entry_and_cdr(self):
         query = self.GET.get('q_ce_and_cdr')
-        posts_list = CALL_ENTRY_AND_CDR.objects.all()
+        posts_list = CallEntryAndCdr.objects.all()
         csv = self.GET.get('csv')
         if csv:
             return djqscsv.render_to_csv_response(posts_list)
         elif query:
-            posts_list = CALL_ENTRY_AND_CDR.objects.filter(
+            posts_list = CallEntryAndCdr.objects.filter(
                 Q(unique_id__icontains=query) | Q(call_date__icontains=query) |
                 Q(datetime_init__icontains=query) | Q(status__icontains=query)
             ).distinct()
@@ -305,12 +336,12 @@ class TABLES:
 
     def call_entry_not_matched(self):
         query = self.GET.get('q_ce_not_matched')
-        posts_list = CALL_ENTRY_AND_CDR_NOT_MATCHED.objects.all()
+        posts_list = CallEntryAndCdrNotMatched.objects.all()
         csv = self.GET.get('csv')
         if csv:
             return djqscsv.render_to_csv_response(posts_list)
         elif query:
-            posts_list = CALL_ENTRY_AND_CDR_NOT_MATCHED.objects.filter(
+            posts_list = CallEntryAndCdrNotMatched.objects.filter(
                 Q(unique_id__icontains=query) | Q(datetime_entry_queue__icontains=query) |
                 Q(status__icontains=query)
             ).distinct()
@@ -320,12 +351,12 @@ class TABLES:
 
     def cdr_not_matched(self):
         query = self.GET.get('q_cdr_not_matched')
-        posts_list = CDR_AND_CALL_ENTRY_NOT_MATCHED.objects.all()
+        posts_list = CdrAndCallEntryNotMatched.objects.all()
         csv = self.GET.get('csv')
         if csv:
             return djqscsv.render_to_csv_response(posts_list)
         elif query:
-            posts_list = CDR_AND_CALL_ENTRY_NOT_MATCHED.objects.filter(
+            posts_list = CdrAndCallEntryNotMatched.objects.filter(
                 Q(unique_id__icontains=query) | Q(call_date__icontains=query) |
                 Q(cl_id__icontains=query) | Q(disposition__icontains=query)
             ).distinct()
@@ -340,11 +371,90 @@ def truncate(n, decimals=0):
     return int(n * multiplier) / multiplier
 
 
+def register_user(request):
+    message = "Please Sign up"
+    f_name = request.POST.get('first_name')
+    l_name = request.POST.get('last_name')
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    password1 = request.POST.get('password1')
+    password2 = request.POST.get('password2')
+    print(email, password1)
+    if email:
+        try:
+            if (
+                    '@gmail.com' or '.com' or '.in' or '.co' or '@facebook.com' or '@grssl.uk' or '@grassrootsbpo.com' or '@yahoo.com') in email:
+                if password1 == password2:
+                    validate_email = User.objects.get(email=email)
+                    if validate_email.email:
+                        message = 'User with this email already exist.'
+                    else:
+                        message = 'Invalid login, Email or Password is incorrect.'
+                else:
+                    message = "Password doesn't matched"
+            else:
+                message = 'Invalid login, Email or Password is incorrect.'
+
+        except ObjectDoesNotExist:
+            try:
+                if len(password1) < 6:
+                    message = "password length must be greater than 6"
+
+                elif (password1 and password2) is not None:
+                    User.objects.create_user(username=username, email=email, password=password1, first_name=f_name,
+                                             last_name=l_name)
+                    return HttpResponseRedirect('/login')
+                else:
+                    message = 'Invalid login, Email or Password is incorrect.'
+            except IntegrityError:
+                message = "Username already exists"
+    return render(request, 'register.html', {'message': message})
+
+
+def change_pass(request):
+    message = "Change Password"
+    if request.method == 'POST':
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        print(password1, password2)
+        try:
+            if password1 == password2:
+                u = User.objects.get(email=email)
+                u.set_password(password1)
+                u.save()
+                return HttpResponseRedirect('/login')
+            else:
+                message = "Passwords doesn't Match"
+        except ObjectDoesNotExist:
+            message = "E-mail not matched"
+    return render(request, 'change_password.html', {'message': message})
+
+
+def login(request):
+    message = "Please Sign In"
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password1']
+        print(password)
+        try:
+            user = User.objects.get(email=email)
+            if authenticate(username=user.username, password=password):
+                return HttpResponseRedirect('/accounts/index/')
+            else:
+                message = 'Invalid login, Please try again.'
+        except ObjectDoesNotExist:
+            message = 'Invalid login, Please try again.'
+        except AttributeError:
+            message = message
+    return render(request, 'login.html', {'message': message})
+
+
 def index(request):
-    _cdr = CDR.objects.all()
-    ans = CDR.objects.filter(disposition='ANSWERED')
-    no_ans = CDR.objects.filter(disposition='NO ANSWER')
-    fail = CDR.objects.filter(disposition='FAILED')
+    _cdr = Cdr.objects.all()
+    ans = Cdr.objects.filter(disposition='ANSWERED')
+    no_ans = Cdr.objects.filter(disposition='NO ANSWER')
+    fail = Cdr.objects.filter(disposition='FAILED')
     length_cdr = _cdr.count()
     ans_calls = (ans.count() / length_cdr) * 100
     no_ans_calls = (no_ans.count() / length_cdr) * 100
@@ -377,11 +487,3 @@ def index(request):
                                           'less_than_30_count': len(less_than_30),
                                           'greater_than_30_sec': truncate(greater_than_30_sec, 2),
                                           'greater_than_30_count': len(greater_than_30)})
-
-
-#
-# start_date = '2020-02-02'
-# end_date = '2020-02-03'
-# cdr_life = CDR_LIFESTYLE.objects.filter(Queue_Entry_Time__range=(start_date, end_date))
-# # cdr_life = CDR_LIFESTYLE.objects.all()
-# print(dat(cdr_life))
